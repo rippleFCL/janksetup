@@ -20,12 +20,12 @@ locals {
 
 source "proxmox-iso" "arch-deployment" {
   boot_command = [
-		"<enter><wait10><wait10><wait10><wait10>",
+    "<enter><wait10><wait10><wait10><wait10>",
     "/usr/bin/systemctl stop qemu-guest-agent<enter><wait1>",
-		"/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh<enter><wait1>",
-		"/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/bootstrap-system.sh<enter><wait1>",
+    "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.sh<enter><wait1>",
+    "/usr/bin/curl -O http://{{ .HTTPIP }}:{{ .HTTPPort }}/bootstrap-system.sh<enter><wait1>",
     "chmod +x *.sh<enter><wait1>",
-		"/usr/bin/bash ./install.sh<enter><wait10>"
+    "/usr/bin/bash ./install.sh<enter><wait10>"
     ]
 
   boot_wait       = "10s"
@@ -47,18 +47,18 @@ source "proxmox-iso" "arch-deployment" {
   http_content             = local.enable_ssh
   insecure_skip_tls_verify = true
 
-	iso_storage_pool = var.iso_storage_pool
+  iso_storage_pool = var.iso_storage_pool
   iso_url 				 = var.iso_url
-	iso_checksum		 = "${var.iso_checksum_type}:${var.iso_checksum}"
+  iso_checksum		 = "${var.iso_checksum_type}:${var.iso_checksum}"
 
-	dynamic "network_adapters" {
+  dynamic "network_adapters" {
     for_each = var.network_adaptors
     content {
-			bridge   = network_adapters.value.adapter
-			model    = network_adapters.value.driver
-			vlan_tag = network_adapters.value.vlan
-		}
-	}
+      bridge   = network_adapters.value.adapter
+      model    = network_adapters.value.driver
+      vlan_tag = network_adapters.value.vlan
+    }
+  }
 
   memory = 2000
 
