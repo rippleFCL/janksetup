@@ -1,7 +1,6 @@
 ---
 - name: "Deploy bspwm vm"
   hosts: bspwm
-  become: true
   vars:
     ansible_host: "10.0.5.9"
   tasks:
@@ -17,6 +16,10 @@
         name: install-arch-x-base
       vars:
         yay_srcdir: /tmp
+
+    - name: "Install arch distro x base"
+      ansible.builtin.include_role:
+        name: install-pipewire-audio
 
     - name: "Install packages"
       kewlfft.aur.aur:

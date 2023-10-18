@@ -9,6 +9,11 @@
     state: present
   become: true
 
+- name: "add safe directorys"
+  community.general.git_config:
+    name: safe.directory
+    value: "*"
+
 - name: Make, clone, and build yay
   when: not st.stat.exists
   block:
