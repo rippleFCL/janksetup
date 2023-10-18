@@ -1,1 +1,2 @@
 internal_domain: home.lan
+ansible_ssh_user: ansible
