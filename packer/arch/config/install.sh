@@ -13,6 +13,8 @@ mount /dev/sda2 /mnt
 mkdir /mnt/boot
 mount -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/sda1 /mnt/boot
 
+echo "ParallelDownloads = 16" >> /etc/pacman.conf
+
 pacstrap -K /mnt base base-devel linux linux-firmware
 
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -23,8 +25,9 @@ arch-chroot /mnt /bootstrap-system.sh
 
 rm /mnt/bootstrap-system.sh
 
+sleep 10
+
 umount -R /mnt
 
-# sleep 10
 
 systemctl reboot

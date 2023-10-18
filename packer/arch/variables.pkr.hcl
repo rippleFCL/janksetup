@@ -6,6 +6,15 @@ variable "guest_username" {
     type = string
 }
 
+variable "ansible_username" {
+    type = string
+}
+
+variable "ansible_password" {
+    type = string
+}
+
+
 variable "ssh_timeout" {
     type = string
     default = "15m"

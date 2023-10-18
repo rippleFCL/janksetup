@@ -61,7 +61,7 @@ source "proxmox-iso" "arch-deployment" {
   }
 
   memory = 2000
-
+  cores = 16
   node                 = var.proxmox_node
   token                = var.proxmox_token
   proxmox_url          = "https://${var.proxmox_url}/api2/json"
@@ -85,6 +85,19 @@ build {
     playbook_file       = "../../ansible/playbooks/packer/bootstrap-arch-image.yml"
     use_proxy           = false
     ansible_env_vars    = ["ANSIBLE_CONFIG=../../ansible/ansible.cfg"]
+    extra_arguments     = [
+      "-e",
+      "ansible_password=${var.ansible_password}",
+      "-e",
+      "ansible_username=${var.ansible_username}",
+      "-e",
+      "ansible_ssh_pass=${var.guest_password}",
+      "-e",
+      "ansible_ssh_user=${var.guest_username}",
+      "-e",
+      "guest_username=${var.guest_username}"
+
+    ]
     inventory_directory = var.ansible_inventory_dir
   }
 

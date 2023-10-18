@@ -1,4 +1,6 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
+
+set -e
 
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
