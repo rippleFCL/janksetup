@@ -1,3 +1,5 @@
+#!/usr/bin/env bash -e
+
 ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
 
 hwclock --systohc

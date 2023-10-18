@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -e
 
 systemctl stop sshd.service
 
@@ -18,7 +18,9 @@ pacstrap -K /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 cp bootstrap-system.sh /mnt/bootstrap-system.sh
+
 arch-chroot /mnt /bootstrap-system.sh
+
 rm /mnt/bootstrap-system.sh
 
 umount -R /mnt
