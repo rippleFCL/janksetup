@@ -48,8 +48,8 @@ source "proxmox-iso" "arch-deployment" {
   insecure_skip_tls_verify = true
 
   iso_storage_pool = var.iso_storage_pool
-  iso_url 				 = var.iso_url
-  iso_checksum		 = "${var.iso_checksum_type}:${var.iso_checksum}"
+  iso_url          = var.iso_url
+  iso_checksum     = "${var.iso_checksum_type}:${var.iso_checksum}"
 
   dynamic "network_adapters" {
     for_each = var.network_adaptors
