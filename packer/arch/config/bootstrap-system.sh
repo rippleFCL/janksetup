@@ -38,11 +38,11 @@ bootctl --path=/boot install
 
 
 
-/usr/bin/useradd  --create-home --user-group ${username}
+useradd  --create-home --user-group ${username}
 echo -e "${password}\n${password}" | /usr/bin/passwd ${username}
 echo 'Defaults env_keep += "SSH_AUTH_SOCK"' > /etc/sudoers.d/10_${username}
 echo '${username} ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/10_${username}
-/usr/bin/chmod 0440 /etc/sudoers.d/10_${username}
+chmod 0440 /etc/sudoers.d/10_${username}
 
 pacman -Sy --noconfirm dhcpcd openssh qemu-guest-agent python networkmanager
 

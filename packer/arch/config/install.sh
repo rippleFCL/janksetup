@@ -27,4 +27,4 @@ umount -R /mnt
 
 # sleep 10
 
-/usr/bin/systemctl reboot
+systemctl reboot
