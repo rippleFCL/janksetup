@@ -1,0 +1,25 @@
+---
+- name: 'Bootstrap vm template'
+  hosts: default
+  become: true
+  vars:
+    ansible_ssh_user: ditrames
+    ansible_ssh_pass: "{{default_user_password}}"
+    ansible_become_pass: "{{default_user_password}}"
+  roles:
+    - bootstrap-vm-users
+
+  tasks:
+    - name: "Add static ip"
+      community.general.nmcli:
+        conn_name: vm-net
+        ifname: enp6s18
+        type: ethernet
+        ip4: 10.0.5.9/24
+        gw4: 10.0.5.1
+        state: present
+
+    - name: "disable dhcpd"
+      ansible.builtin.systemd:
+        name: dhcpcd@enp6s18
+        enabled: false

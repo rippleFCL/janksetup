@@ -1,0 +1,24 @@
+- name: "Install yay"
+  ansible.builtin.include_role:
+    name: install-yay
+  vars:
+    srcdir: "{{ yay_srcdir }}"
+
+- name: "Install packages"
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - nvidia
+      - nvidia-utils
+      - xorg
+      - xorg-xinit
+      - xterm
+      - sddm
+      - chezmoi
+
+
+- name: "Start sddm"
+  ansible.builtin.systemd:
+    name: sddm
+    enabled: true
+  become: true

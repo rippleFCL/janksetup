@@ -1,0 +1,29 @@
+---
+- name: 'Make ansible user'
+  ansible.builtin.user:
+    name: ansible
+    password: "{{ ansible_user_password | password_hash('sha512') }}"
+    shell: /bin/bash
+    update_password: on_create
+    create_home: true
+
+- name: 'Add ansible user to suderos'
+  community.general.sudoers:
+    name: ansible-user
+    state: present
+    user: ansible
+    commands: ALL
+
+- name: Set ansible users autherised ssh key
+  ansible.posix.authorized_key:
+    user: ansible
+    state: present
+    key: "{{ lookup('file', item) }}"
+  loop: "{{ lookup('fileglob', 'ssh-keys/ansible/*', wantlist=True) }}"
+
+- name: Set ditrames users autherised ssh key
+  ansible.posix.authorized_key:
+    user: ditrames
+    state: present
+    key: "{{ lookup('file', item) }}"
+  loop: "{{ lookup('fileglob', 'ssh-keys/ditrames/*', wantlist=True) }}"

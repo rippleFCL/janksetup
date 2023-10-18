@@ -1,0 +1,5 @@
+- name: Initialize chezmoi
+  ansible.builtin.command: "chezmoi init --apply --verbose {{ chezmoi_init_url }}"
+  when: chezmoi_init_url
+  args:
+    creates: "~/.local/share/chezmoi"
