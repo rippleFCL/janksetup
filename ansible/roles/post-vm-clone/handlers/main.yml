@@ -1,5 +1,0 @@
----
-- name: Reboot machine
-  when: reboot
-  ansible.builtin.reboot:
-  listen: "reboot vm"

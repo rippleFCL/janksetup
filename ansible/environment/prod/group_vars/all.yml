@@ -1,8 +1,0 @@
-internal_domain: home.lan
-ansible_ssh_user: ansible
-ansible_ssh_common_args: >-
-  -C
-  -o ControlMaster=auto
-  -o ControlPersist=60s
-  -o GlobalKnownHostsFile=/dev/null
-  -o UserKnownHostsFile=/dev/null
