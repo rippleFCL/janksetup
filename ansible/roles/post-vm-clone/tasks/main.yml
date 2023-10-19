@@ -1,12 +1,7 @@
 - name: Run post clone
   when: ansible_facts['nodename'] != hostname
+  become: true
   block:
-    - name: Set hostname
-      ansible.builtin.hostname:
-        name: "{{ hostname }}"
-        use: systemd
-
-
     - name: Update /etc/hosts
       ansible.builtin.lineinfile:
         path: /etc/hosts
@@ -25,6 +20,9 @@
       ansible.builtin.include_tasks:
         file: "{{ distro }}.yml"
 
-    - name: "Reboot vm"
-      when: reboot
-      ansible.builtin.reboot:
+    - name: Set hostname
+      ansible.builtin.hostname:
+        name: "{{ hostname }}"
+        use: systemd
+      notify: reboot vm
+

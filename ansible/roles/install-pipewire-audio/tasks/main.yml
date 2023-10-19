@@ -15,7 +15,7 @@
   ansible.builtin.expect:
     command: "yay -S --needed --cleanafter wireplumber --nodeps"
     responses:
-      installation:
+      (?i)wireplumber and pipewire-media-session are in conflict.*:
         - y
-      pipewire-media-session:
+      installation:
         - y
