@@ -1,5 +1,5 @@
 ---
-- name: 'Bootstrap vm template'
+- name: Bootstrap vm template
   hosts: default
   become: true
   vars:
@@ -7,7 +7,7 @@
     - bootstrap-vm-users
 
   tasks:
-    - name: "Add static ip"
+    - name: Add static ip
       community.general.nmcli:
         conn_name: vm-net
         ifname: "{{ interface_name }}"
@@ -16,7 +16,7 @@
         gw4: 10.0.5.1
         state: present
 
-    - name: "disable dhcpd"
+    - name: disable dhcpd
       ansible.builtin.systemd:
         name: "dhcpcd@{{ interface_name }}"
         enabled: false

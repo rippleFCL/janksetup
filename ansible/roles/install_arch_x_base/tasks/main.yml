@@ -1,6 +1,7 @@
-- name: "Install yay"
+
+- name: Install yay
   ansible.builtin.include_role:
-    name: install-yay
+    name: install_yay
   vars:
     srcdir: "{{ yay_srcdir }}"
 
@@ -15,9 +16,10 @@
       - xterm
       - sddm
       - chezmoi
+      - nano
+      - python-pywal
 
-
-- name: "Start sddm"
+- name: Start sddm
   ansible.builtin.systemd:
     name: sddm
     enabled: true

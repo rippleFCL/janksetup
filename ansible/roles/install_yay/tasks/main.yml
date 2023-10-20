@@ -1,20 +1,20 @@
+---
 - name: Check if yay exists
   ansible.builtin.stat:
     path: /usr/bin/yay
   register: st
 
-- name: "Install git"
+- name: Install git
   community.general.pacman:
     name: git
     state: present
   become: true
 
-- name: "add safe directorys"
+- name: Add safe directorys
   community.general.git_config:
     name: safe.directory
     value: "*"
   become: true
-
 
 - name: Make, clone, and build yay
   when: not st.stat.exists

@@ -2,4 +2,5 @@
 - name: Reboot machine
   when: reboot
   ansible.builtin.reboot:
+  become: true
   listen: "reboot vm"

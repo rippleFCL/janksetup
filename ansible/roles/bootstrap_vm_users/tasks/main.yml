@@ -1,5 +1,5 @@
 ---
-- name: 'Make ansible user'
+- name: Make ansible user
   ansible.builtin.user:
     name: "{{ ansible_username}}"
     password: "{{ ansible_password | password_hash('sha512') }}"
@@ -7,7 +7,7 @@
     update_password: on_create
     create_home: true
 
-- name: 'Add ansible user to sudoers'
+- name: Add ansible user to sudoers
   community.general.sudoers:
     name: ansible-user
     state: present

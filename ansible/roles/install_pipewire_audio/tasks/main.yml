@@ -1,4 +1,4 @@
-- name: "Install packages"
+- name: Install packages
   kewlfft.aur.aur:
     use: yay
     extra_args:
@@ -11,7 +11,7 @@
       - python-setuptools
       - python-pexpect
 
-- name: "Install wireplumber"
+- name: Install wireplumber
   ansible.builtin.expect:
     command: "yay -S --needed --cleanafter wireplumber --nodeps"
     responses:
@@ -19,3 +19,4 @@
         - y
       installation:
         - y
+    creates: /usr/bin/wireplumber
