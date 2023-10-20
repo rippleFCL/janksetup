@@ -3,25 +3,24 @@
   hosts: bspwm
   vars:
     ansible_host: "10.0.5.9"
+    yay_srcdir: /tmp
   tasks:
     - name: Post vm clone tasks
       ansible.builtin.include_role:
-        role: post-vm-clone
+        role: post_vm_clone
       vars:
         reboot: true
         distro: "arch"
 
-    - name: "Install arch distro x base"
+    - name: Install arch distro x base
       ansible.builtin.include_role:
-        name: install-arch-x-base
-      vars:
-        yay_srcdir: /tmp
+        name: install_arch_x_base
 
-    - name: "Install arch distro x base"
+    - name: Install arch distro x base
       ansible.builtin.include_role:
-        name: install-pipewire-audio
+        name: install_pipewire_audio
 
-    - name: "Install packages"
+    - name: Install packages
       kewlfft.aur.aur:
         use: yay
         update_cache: true
@@ -29,4 +28,9 @@
           - bspwm
           - sxhkd
           - rxvt-unicode
+          # - picom
+          # - nitrogen
+          # - polybar
+          # - alacritty
+          - rofi
         state: present
