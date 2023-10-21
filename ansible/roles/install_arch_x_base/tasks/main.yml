@@ -17,7 +17,29 @@
       - sddm
       - chezmoi
       - nano
-      - python-pywal
+      - pywal-16-colors
+      - nitrogen
+      - ttf-jetbrains-mono-nerd
+      - kitty
+
+- name: Create chezmoi config file
+  ansible.builtin.file:
+    path: /home/{{ guest_username }}/.config/chezmoi/chezmoi.yml
+    state: touch
+    owner: "{{ guest_username }}"
+    group: "{{ guest_username }}"
+    mode: u=rw,g=r,o=r
+  become: true
+
+
+- name: Add x related chezmoi config
+  ansible.builtin.blockinfile:
+    path: /home/{{ guest_username }}/.config/chezmoi/chezmoi.yml
+    block: |
+      data:
+        isX: true
+  become: true
+
 
 - name: Start sddm
   ansible.builtin.systemd:
