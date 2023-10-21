@@ -29,8 +29,6 @@
           - sxhkd
           - rxvt-unicode
           # - picom
-          # - nitrogen
           # - polybar
-          # - alacritty
           - rofi
         state: present

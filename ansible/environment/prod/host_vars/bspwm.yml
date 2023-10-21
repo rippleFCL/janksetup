@@ -1,2 +1,3 @@
 hostname: bspwm-jankvisor
+guest_username: ripple
 ip: 10.0.5.11
