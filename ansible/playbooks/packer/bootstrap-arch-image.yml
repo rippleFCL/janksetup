@@ -4,12 +4,12 @@
   become: true
   vars:
   roles:
-    - bootstrap-vm-users
+    - bootstrap_vm_users
 
   tasks:
     - name: Add static ip
       community.general.nmcli:
-        conn_name: vm-net
+        conn_name: "{{ interface_name }}"
         ifname: "{{ interface_name }}"
         type: ethernet
         ip4: 10.0.5.9/24
