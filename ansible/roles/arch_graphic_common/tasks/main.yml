@@ -1,0 +1,23 @@
+- name: "Install graphic packages"
+  kewlfft.aur.aur:
+    use: yay
+    update_cache: true
+    name:
+      - discord
+      - firefox
+      - nvidia
+      - nvidia-utils
+      - kitty
+      - pywal-16-colors
+      - sddm
+      - visual-studio-code-bin
+
+- name: Enable sddm
+  ansible.builtin.systemd:
+    name: sddm
+    enabled: true
+  become: true
+
+- name: Install pipewire audio packages
+  ansible.builtin.include_role:
+    name: install_pipewire_audio

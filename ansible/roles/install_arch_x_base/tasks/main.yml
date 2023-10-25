@@ -1,48 +1,22 @@
-
-- name: Install yay
-  ansible.builtin.include_role:
-    name: install_yay
-  vars:
-    srcdir: "{{ yay_srcdir }}"
-
+---
 - name: "Install packages"
   kewlfft.aur.aur:
     use: yay
+    update_cache: true
     name:
-      - nvidia
-      - nvidia-utils
       - xorg
       - xorg-xinit
       - xterm
-      - sddm
-      - chezmoi
-      - nano
-      - pywal-16-colors
       - nitrogen
-      - ttf-jetbrains-mono-nerd
-      - kitty
-
-- name: Create chezmoi config file
-  ansible.builtin.file:
-    path: /home/{{ guest_username }}/.config/chezmoi/chezmoi.yml
-    state: touch
-    owner: "{{ guest_username }}"
-    group: "{{ guest_username }}"
-    mode: u=rw,g=r,o=r
-  become: true
-
+      - polybar
 
 - name: Add x related chezmoi config
-  ansible.builtin.blockinfile:
-    path: /home/{{ guest_username }}/.config/chezmoi/chezmoi.yml
-    block: |
+  ansible.builtin.copy:
+    dest: "/home/{{ guest_username }}/.config/chezmoi/chezmoi.yml"
+    content: |
       data:
         isX: true
-  become: true
-
-
-- name: Start sddm
-  ansible.builtin.systemd:
-    name: sddm
-    enabled: true
+    owner: "{{ guest_username }}"
+    group: "{{ guest_username }}"
+    mode: "0644"
   become: true

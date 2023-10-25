@@ -4,25 +4,13 @@
     path: /usr/bin/yay
   register: st
 
-- name: Install git
-  community.general.pacman:
-    name: git
-    state: present
-  become: true
-
-- name: Add safe directorys
-  community.general.git_config:
-    name: safe.directory
-    value: "*"
-  become: true
-
 - name: Make, clone, and build yay
   when: not st.stat.exists
   block:
 
     - name: Make yay build dir
       ansible.builtin.file:
-        path: "{{ srcdir }}/yay"
+        path: "{{ yay_srcdir }}/yay"
         state: directory
         owner: ansible
         group: ansible
@@ -32,11 +20,11 @@
     - name: Clone yay # noqa latest[git]
       ansible.builtin.git:
         repo: https://aur.archlinux.org/yay-bin.git
-        dest: "{{ srcdir }}/yay/"
+        dest: "{{ yay_srcdir }}/yay/"
         update: true
 
     - name: Build and install yay
       ansible.builtin.command:
-        chdir: "{{ srcdir }}/yay"
+        chdir: "{{ yay_srcdir }}/yay"
         cmd: "makepkg -sfi --noconfirm"
         creates: /usr/bin/yay

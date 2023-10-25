@@ -1,5 +1,6 @@
+---
 - name: Initialize chezmoi
-  ansible.builtin.command: "chezmoi init --apply --verbose {{ chezmoi_init_url }}"
-  when: chezmoi_init_url
-  args:
-    creates: "~/.local/share/chezmoi"
+  ansible.builtin.command:
+    chdir: /home/ripple/
+    cmd: "chezmoi init --apply git@github.com:rippleFCL/dotfiles.git"
+    creates: "/home/{{ guest_username }}/.local/share/chezmoi/"

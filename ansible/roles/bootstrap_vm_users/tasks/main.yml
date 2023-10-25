@@ -1,7 +1,7 @@
 ---
 - name: Make ansible user
   ansible.builtin.user:
-    name: "{{ ansible_username}}"
+    name: "{{ ansible_username }}"
     password: "{{ ansible_password | password_hash('sha512') }}"
     shell: /bin/bash
     update_password: on_create
@@ -12,16 +12,23 @@
     name: ansible-user
     state: present
     user: ansible
+    runas: ALL
     commands: ALL
 
-- name: Set {{ ansible_username}} users authorised ssh key
+- name: Ensure SELinux is set to enforcing mode
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/ansible-user
+    regexp: '^Defaults'
+    line: 'Defaults env_keep += "SSH_AUTH_SOCK"'
+
+- name: Set ansible users users authorised ssh key
   ansible.posix.authorized_key:
-    user: "{{ ansible_username}}"
+    user: "{{ ansible_username }}"
     state: present
     key: "{{ lookup('file', item) }}"
   loop: "{{ lookup('fileglob', 'ssh-keys/{{ ansible_username}}/*', wantlist=True) }}"
 
-- name: Set {{ guest_username }} users authorised ssh key
+- name: Set ansible users users authorised ssh key
   ansible.posix.authorized_key:
     user: "{{ guest_username }}"
     state: present

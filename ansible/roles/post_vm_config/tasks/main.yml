@@ -1,0 +1,61 @@
+---
+- name: "Add usb devices to vm"
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "{{ item.key }}: host={{ item.value }}"
+    regexp: "^{{ item.key }}"
+  with_dict: "{{ usbinfo[type] }}"
+
+- name: "Add pcie devices to vm"
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "{{ item.key }}: {{ item.value }},pcie=1"
+    regexp: "^{{ item.key }}"
+  with_dict: "{{ pcieinfo[type] }}"
+
+- name: "Add network devices to vm"
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "{{ item.key }}: virtio={{ '52' | community.general.random_mac }},{{ item.value }}"
+    regexp: "^{{ item.key }}: virtio=([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})"
+  with_dict: "{{ networkinfo }}"
+
+- name: "Add args to vm"
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "args: -audiodev pa,id=pa,server=unix:/tmp/pulse-socket,out.mixing-engine=off -device intel-hda -device hda-duplex,audiodev=pa -audiodev pa,id=pa2,server=unix:/tmp/pulse-socket,out.mixing-engine=off -device intel-hda -device hda-output,audiodev=pa2"
+    regexp: "^args"
+
+- name: "remove vga display from vm"
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "vga: none"
+    regexp: "^vga"
+
+
+- name: "change cpu type "
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "cpu: host"
+    regexp: "^cpu"
+
+- name: "change core count "
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "cores: 32"
+    regexp: "^cores"
+
+- name: "change memory value "
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "memory: {{ memoryinfo[type] }}"
+    regexp: "^memory"
+

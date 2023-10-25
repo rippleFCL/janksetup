@@ -26,3 +26,5 @@
         use: systemd
       notify: reboot vm
 
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
