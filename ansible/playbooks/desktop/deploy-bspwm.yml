@@ -42,8 +42,9 @@
         conn_name: "{{ item.key }}"
         ifname: "{{ item.key }}"
         type: ethernet
-        ip4: "{{ item.value }}"
-        gw4: 10.0.5.1
+        ip4: "{{ item.value['ip'] }}"
+        gw4: "{{ item.value['gateway'] }}"
+        dns4: "{{ item.value['dns'] }}"
         state: present
       with_dict: "{{ interfaces }}"
       become: true

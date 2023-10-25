@@ -2,5 +2,11 @@ hostname: bspwm-jankvisor
 guest_username: ripple
 master_ip: "10.0.5.11"
 interfaces:
-  enp6s18: "{{ master_ip }}/24"
-  enp6s19: "10.0.1.190/24"
+  enp6s18:
+    ip: "{{ master_ip }}/24"
+    gateway: "10.0.5.1"
+    dns: "10.0.5.1"
+  enp6s19:
+    ip: "10.0.1.190/24"
+    gateway: null
+    dns: null
