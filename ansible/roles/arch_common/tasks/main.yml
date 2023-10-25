@@ -16,7 +16,7 @@
     state: present
     group: "{{ guest_username }}"
     owner: "{{ guest_username }}"
-    line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    line: "{{ lookup('pipe', 'ssh-keyscan -t ed25519 github.com') }}"
     regexp: "^github\\.com"
 
 - name: Add safe directorys
