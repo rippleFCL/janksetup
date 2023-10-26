@@ -1,4 +1,5 @@
 hostname: bspwm-jankvisor
+ansible_host: "10.0.5.9"
 guest_username: ripple
 master_ip: "10.0.5.11"
 interfaces:

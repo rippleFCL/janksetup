@@ -1,0 +1,9 @@
+- name: "Configure hypervisor"
+  hosts: jankvisor
+  vars:
+    type: secondary
+    vmid: 110
+  tasks:
+    - name: "Configer the bspwm vm"
+      ansible.builtin.include_role:
+        name: post_vm_config
