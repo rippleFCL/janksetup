@@ -43,6 +43,11 @@
      - nerd-fonts-complete
      - chezmoi
      - direnv
+     - ansible
+     - packer
+     - docker
+     - docker-compose
+     - neofetch
 
 - name: Create chezmoi config file
   ansible.builtin.file:

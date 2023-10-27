@@ -11,6 +11,7 @@
       - pywal-16-colors
       - sddm
       - visual-studio-code-bin
+      - gnome-font-viewer
 
 - name: Enable sddm
   ansible.builtin.systemd:
