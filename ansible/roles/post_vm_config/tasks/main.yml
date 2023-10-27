@@ -19,15 +19,22 @@
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: "{{ item.key }}: virtio={{ '52' | community.general.random_mac }},{{ item.value }}"
-    regexp: "^{{ item.key }}: virtio=([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})"
-  with_dict: "{{ networkinfo }}"
+    line: "{{ item.key }}: {{ item.value }}"
+    regexp: "^{{ item.key }}:"
+  with_dict: "{{ networkinfo[type]  }}"
 
 - name: "Add args to vm"
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: "args: -audiodev pa,id=pa,server=unix:/tmp/pulse-socket,out.mixing-engine=off -device intel-hda -device hda-duplex,audiodev=pa -audiodev pa,id=pa2,server=unix:/tmp/pulse-socket,out.mixing-engine=off -device intel-hda -device hda-output,audiodev=pa2"
+    line: >-
+     args:
+     -audiodev pa,id=pa,server=unix:/tmp/pulse-socket,out.mixing-engine=off
+     -device intel-hda
+     -device hda-duplex,audiodev=pa
+     -audiodev pa,id=pa2,server=unix:/tmp/pulse-socket,out.mixing-engine=off
+     -device intel-hda
+     -device hda-output,audiodev=pa2
     regexp: "^args"
 
 - name: "remove vga display from vm"

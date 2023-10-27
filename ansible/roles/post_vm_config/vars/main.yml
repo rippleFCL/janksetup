@@ -15,9 +15,14 @@ pcieinfo:
     hostpci0: "0000:0a:00"
 
 networkinfo:
-  net0: "bridge=vmbr0,firewall=1,tag=70"
-  net1: "bridge=vmbr0,firewall=1,tag=10"
-  net2: "bridge=vmbr0,firewall=1"
+  primary:
+    net0: "virtio=CA:13:80:09:EA:7B,bridge=vmbr0,firewall=1,tag=70"
+    net1: "virtio=CA:13:80:09:EA:7C,bridge=vmbr0,firewall=1,tag=10"
+    net2: "virtio=CA:13:80:09:EA:7D,bridge=vmbr0,firewall=1"
+  secondary:
+    net0: "virtio=62:03:E8:5C:92:35,bridge=vmbr0,firewall=1,tag=70"
+    net1: "virtio=62:03:E8:5C:92:36,bridge=vmbr0,firewall=1,tag=10"
+    net2: "virtio=62:03:E8:5C:92:37,bridge=vmbr0,firewall=1"
 
 memoryinfo:
   primary: 12000
