@@ -42,10 +42,10 @@
         ifname: "{{ item.key }}"
         type: ethernet
         ip4: "{{ item.value['ip'] }}"
-        gw4: "{{ item.value['gateway'] }}"
-        dns4: "{{ item.value['dns'] }}"
+        gw4: "{{ item.value['gateway'] | default(omit) }}"
+        dns4: "{{ item.value['dns'] | default(omit) }}"
         state: present
-      with_dict: "{{ interfaces }}"
+      loop: "{{ interfaces | dict2items }}"
       become: true
 
 - name: "Configure bspwm user"
