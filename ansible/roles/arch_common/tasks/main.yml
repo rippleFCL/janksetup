@@ -58,6 +58,7 @@
     user: "{{ guest_username }}"
     groups: docker
     append: true
+  become: true
 
 - name: Install bsm keys
   ansible.builtin.include_role:
