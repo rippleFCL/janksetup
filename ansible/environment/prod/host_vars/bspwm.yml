@@ -2,6 +2,7 @@ hostname: bspwm-jankvisor
 ansible_host: "10.0.5.11"
 guest_username: ripple
 master_ip: "10.0.5.11"
+bsm_install_path: /tmp/bsm
 interfaces:
   enp6s18:
     ip: "{{ master_ip }}/24"
