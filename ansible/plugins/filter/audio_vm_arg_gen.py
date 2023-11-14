@@ -21,9 +21,9 @@ class FilterModule:
             audio_vm_args = []
             for index, config_values in enumerate(config):
                 audio_dev_args = [f"-audiodev pa,id=pa{index}","server=unix:/tmp/pulse-socket,out.mixing-engine=off"]
-                if config_values['output']:
+                if config_values.get('output', ''):
                     audio_dev_args.append(f"out.name={config_values['output']}")
-                if config_values['input']:
+                if config_values.get('input', ''):
                     audio_dev_args.append(f"in.name={config_values['input']}")
                 devices = " ".join([
                     ','.join(audio_dev_args),

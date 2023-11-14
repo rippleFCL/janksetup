@@ -17,9 +17,9 @@ class FilterModule:
                 f"virtio={config['mac']}",
                 f"bridge={config['bridge']}"
             ]
-            if config['firewall']:
+            if config.get("firewall", ""):
                 netconf.append(f"firewall={config['firewall']}")
-            if config['tag']:
+            if config.get("tag", ""):
                 netconf.append(f"tag={config['tag']}")
             return ",".join(netconf).encode("utf-8")
 
