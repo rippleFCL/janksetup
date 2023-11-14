@@ -8,6 +8,14 @@
    - Update grub
    - Reboot pve
 
+- name: Make sure modules files exists
+  ansible.builtin.file:
+    path: /etc/modules
+    modification_time: preserve
+    access_time: preserve
+    state: touch
+    mode: 0644
+
 - name: "Add vfio modules"
   ansible.builtin.blockinfile:
     path: /etc/modules
@@ -21,6 +29,14 @@
     - Update initramfs
     - Reboot pve
 
+- name: Make sure iommu_unsafe_interrupts files exists
+  ansible.builtin.file:
+    path: /etc/modprobe.d/iommu_unsafe_interrupts.conf
+    modification_time: preserve
+    access_time: preserve
+    state: touch
+    mode: 0644
+
 - name: "Allow iommu unsafe interrupts"
   ansible.builtin.lineinfile:
     dest: "/etc/modprobe.d/iommu_unsafe_interrupts.conf"
@@ -31,7 +47,15 @@
     - Update initramfs
     - Reboot pve
 
-- name: "kvm interrupt remapping"
+- name: Make sure kvm files exists
+  ansible.builtin.file:
+    path: /etc/modprobe.d/kvm.conf
+    modification_time: preserve
+    access_time: preserve
+    state: touch
+    mode: 0644
+
+- name: "Kvm interrupt remapping"
   ansible.builtin.lineinfile:
     dest: "/etc/modprobe.d/kvm.conf"
     state: present
@@ -40,6 +64,14 @@
   notify:
     - Update initramfs
     - Reboot pve
+
+- name: Make sure blacklist files exists
+  ansible.builtin.file:
+    path: /etc/modprobe.d/blacklist.conf
+    modification_time: preserve
+    access_time: preserve
+    state: touch
+    mode: 0644
 
 - name: "Add blacklist drivers"
   ansible.builtin.blockinfile:
