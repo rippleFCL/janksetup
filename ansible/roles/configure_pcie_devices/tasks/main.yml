@@ -1,3 +1,18 @@
+---
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: "/etc/modprobe.d/{{ item }}"
+    state: touch
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - iommu_unsafe_interrupts.conf
+    - kvm.conf
+    - blacklist.conf
+  loop_control:
+    label: "Created: {{ item }}"
+
 - name: "add grub linux command line options"
   ansible.builtin.lineinfile:
     dest: "/etc/default/grub"
