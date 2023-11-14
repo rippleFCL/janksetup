@@ -7,7 +7,14 @@ vfio_pci_ids:
   - 10de:1aec
   - 10de:1aed
 
-linux_cmdline_extra_args: "quiet resume=UUID=c754ede5-c0ae-4bd1-bac6-62b143dfd8d6 resume_offset=9934848"
+linux_cmdline_args:
+  - quiet
+  - amd_iommu=on
+  - iommu=pt
+  - vfio_pci.disable_vga=1
+  - initcall_blacklist=sysfb_init
+  - pcie_acs_override=downstream,multifunction
+
 
 usbinfo:
   primary:
