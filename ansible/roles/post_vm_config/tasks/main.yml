@@ -29,10 +29,10 @@
     state: present
     line: >-
      args:
-     -audiodev pa,id=pa,server=unix:/tmp/pulse-socket,out.mixing-engine=off
+     -audiodev pa,id=pa,server=unix:/tmp/pulse-socket,out.mixing-engine=off,out.name=bluez_sink.00_14_41_2F_17_19.a2dp_sink,in.name=alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
      -device intel-hda
      -device hda-duplex,audiodev=pa
-     -audiodev pa,id=pa2,server=unix:/tmp/pulse-socket,out.mixing-engine=off
+     -audiodev pa,id=pa2,server=unix:/tmp/pulse-socket,out.mixing-engine=off,out.name=alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
      -device intel-hda
      -device hda-output,audiodev=pa2
     regexp: "^args"
