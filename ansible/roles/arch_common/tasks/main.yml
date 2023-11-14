@@ -50,7 +50,6 @@
       - unzip
       - terraform
 
-
 - name: Enable service docker
   ansible.builtin.service:
     name: docker

@@ -3,38 +3,37 @@
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: "{{ item.key }}: host={{ item.value }}"
-    regexp: "^{{ item.key }}"
-  with_dict: "{{ usbinfo[type] }}"
+    line: "usb{{ index }}: host={{ item }}"
+    regexp: "^usb{{ index }}"
+  loop: "{{ usbinfo[type] }}"
+  loop_control:
+    index_var: "index"
 
 - name: "Add pcie devices to vm"
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: "{{ item.key }}: {{ item.value }},pcie=1"
-    regexp: "^{{ item.key }}"
-  with_dict: "{{ pcieinfo[type] }}"
+    line: "hostpci{{ index }}: {{ item }},pcie=1"
+    regexp: "^hostpci{{ index}}"
+  loop: "{{ pcieinfo[type] }}"
+  loop_control:
+    index_var: "index"
 
 - name: "Add network devices to vm"
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: "{{ item.key }}: {{ item.value }}"
-    regexp: "^{{ item.key }}:"
-  with_dict: "{{ networkinfo[type]  }}"
+    line: "net{{ index }}: {{ item | proxmox_netconf_gen }}"
+    regexp: "^net{{ index}}:"
+  loop: "{{ networkinfo[type]  }}"
+  loop_control:
+    index_var: "index"
 
 - name: "Add args to vm"
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: >-
-     args:
-     -audiodev pa,id=pa,server=unix:/tmp/pulse-socket,out.mixing-engine=off,out.name=bluez_sink.00_14_41_2F_17_19.a2dp_sink,in.name=alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
-     -device intel-hda
-     -device hda-duplex,audiodev=pa
-     -audiodev pa,id=pa2,server=unix:/tmp/pulse-socket,out.mixing-engine=off,out.name=alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
-     -device intel-hda
-     -device hda-output,audiodev=pa2
+    line: "args: {{ audioinfo[type] | audio_vm_arg_gen }}"
     regexp: "^args"
 
 - name: "remove vga display from vm"
@@ -56,7 +55,7 @@
   ansible.builtin.lineinfile:
     dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
     state: present
-    line: "cores: 32"
+    line: "cores: {{cpuinfo[type]}}"
     regexp: "^cores"
 
 - name: "change memory value "
