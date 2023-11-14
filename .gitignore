@@ -3,3 +3,4 @@ secrets.auto.pkrvars.hcl
 crash.log
 secretenvrc.sh
 .envrc
+__pycache__
