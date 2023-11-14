@@ -1,0 +1,10 @@
+cpu_manufacturer: 'amd'
+vfio_pci_ids:
+  - 10de:2489
+  - 10de:228b
+  - 10de:2187
+  - 10de:1aeb
+  - 10de:1aec
+  - 10de:1aed
+  
+linux_cmdline_extra_args: "quiet resume=UUID=c754ede5-c0ae-4bd1-bac6-62b143dfd8d6 resume_offset=9934848"

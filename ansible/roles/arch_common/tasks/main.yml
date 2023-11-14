@@ -32,21 +32,23 @@
     use: yay
     update_cache: true
     name:
-     - nano
-     - ttf-jetbrains-mono-nerd
-     - ttf-nerd-fonts-symbols-mono
-     - ttf-maple
-     - ttf-maple-sc-nerd
-     - nerd-fonts-complete
-     - chezmoi
-     - direnv
-     - ansible
-     - packer
-     - docker
-     - docker-compose
-     - neofetch
-     - unzip
-     - python-pip
+      - ansible
+      - chezmoi
+      - direnv
+      - docker
+      - docker-compose
+      - nano
+      - neofetch
+      - nerd-fonts-complete
+      - nmap
+      - packer
+      - python-pip
+      - ttf-jetbrains-mono-nerd
+      - ttf-maple
+      - ttf-maple-sc-nerd
+      - ttf-nerd-fonts-symbols-mono
+      - unzip
+      - terraform
 
 
 - name: Enable service docker
