@@ -65,13 +65,11 @@ memoryinfo:
 audioinfo:
   primary:
     - type: duplex
-      output: bluez_sink.00_14_41_2F_17_19.a2dp_sink
       input: alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
     - type: output
       output: alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
   secondary:
     - type: duplex
-      output: bluez_sink.00_14_41_2F_17_19.a2dp_sink
       input: alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
     - type: output
       output: alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
