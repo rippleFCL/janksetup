@@ -1,27 +1,35 @@
 
+---
+- name: Check if bws exists
+  ansible.builtin.stat:
+    path: /bin/bws
+  register: st
 
-- name: Create bsm tmp directory
-  ansible.builtin.file:
-    path: "{{ bsm_install_path }}"
-    state: directory
-    mode: "0755"
-  become: true
+- name: Make, clone, and build bws
+  when: not st.stat.exists
+  block:
+    - name: Create bsm tmp directory
+      ansible.builtin.file:
+        path: "{{ bsm_install_path }}"
+        state: directory
+        mode: "0755"
+      become: true
 
-- name: "wget bsm source"
-  ansible.builtin.unarchive:
-    src: https://github.com/bitwarden/sdk/releases/download/bws-v0.3.1/bws-x86_64-unknown-linux-gnu-0.3.1.zip
-    dest: "{{ bsm_install_path }}"
-    mode: '0744'
-    remote_src: true
-  become: true
+    - name: "wget bsm source"
+      ansible.builtin.unarchive:
+        src: https://github.com/bitwarden/sdk/releases/download/bws-v0.3.1/bws-x86_64-unknown-linux-gnu-0.3.1.zip
+        dest: "{{ bsm_install_path }}"
+        mode: '0744'
+        remote_src: true
+      become: true
 
-- name: "install bws binary"
-  ansible.builtin.copy:
-    src: "{{ bsm_install_path }}/bws"
-    dest: /bin/bws
-    owner: root
-    group: root
-    mode: "0755"
-  become: true
-  
-  
+    - name: "install bws binary"
+      ansible.builtin.copy:
+        src: "{{ bsm_install_path }}/bws"
+        dest: /bin/bws
+        owner: root
+        group: root
+        mode: "0755"
+      become: true
+
+

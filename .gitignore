@@ -4,3 +4,4 @@ crash.log
 secretenvrc.sh
 .envrc
 __pycache__
+ansible/.venv

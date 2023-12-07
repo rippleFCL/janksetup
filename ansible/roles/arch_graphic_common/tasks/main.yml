@@ -15,7 +15,9 @@
       - sddm
       - spotify-launcher
       - visual-studio-code-bin
-
+      - graphviz
+      - prismlauncher-git
+      
 - name: Create home dirs
   ansible.builtin.file:
     path: /home/{{ guest_username }}/{{ item }}
