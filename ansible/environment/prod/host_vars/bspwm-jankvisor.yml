@@ -10,3 +10,7 @@ interfaces:
     dns: "10.0.5.1"
   enp6s19:
     ip: "10.0.1.190/24"
+
+home_dirs:
+  - Documents
+  - Pictures

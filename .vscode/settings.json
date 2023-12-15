@@ -1,6 +1,9 @@
 {
     "ansible.python.interpreterPath": "/home/ripple/programming/jankvisor/.venv/bin/python",
     "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///home/ripple/programming/jankvisor/ansible/roles/configure_pcie_devices/tasks/main.yml"
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": [
+            "file:///home/ripple/programming/jankvisor/ansible/roles/configure_pcie_devices/tasks/main.yml",
+            "file:///home/ripple/programming/jankvisor/ansible/roles/common/tasks/main.yml"
+        ]
     }
 }

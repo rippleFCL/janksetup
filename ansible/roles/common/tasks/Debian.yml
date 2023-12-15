@@ -1,0 +1,47 @@
+- name: Install git
+  ansible.builtin.apt:
+    name: git
+    state: present
+
+- name: Ensure github.com is a known host
+  ansible.builtin.lineinfile:
+    dest: "/home/{{ guest_username }}/.ssh/known_hosts"
+    create: true
+    state: present
+    group: "{{ guest_username }}"
+    owner: "{{ guest_username }}"
+    line: "{{ lookup('pipe', 'ssh-keyscan -t ' + item + ' github.com') }}"
+    mode: "0600"
+    regexp: "^github\\.com {{ item }}"
+  loop: ["ecdsa-sha2-nistp256", "ssh-ed25519", "ssh-rsa"]
+
+- name: Add safe directorys
+  community.general.git_config:
+    name: safe.directory
+    value: "*"
+
+
+- name: "Install common packages "
+  ansible.builtin.apt:
+    name:
+      - nano
+      - neofetch
+      - nmap
+      - packer
+      - python3-pip
+      # - ttf-jetbrains-mono-nerd
+      # - ttf-maple
+      # - ttf-maple-sc-nerd
+      - curl
+      # - ttf-nerd-fonts-symbols-mono
+      - unzip
+      - sshpass
+    state: present
+
+- name: "Install docker"
+  ansible.builtin.include_role:
+    name: geerlingguy.docker
+
+- name: "Install terraform"
+  ansible.builtin.include_role:
+    name: diodonfrost.terraform

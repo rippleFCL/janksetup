@@ -1,6 +1,6 @@
 ---
 - name: "Configure bspwm base"
-  hosts: bspwm
+  hosts: bspwm-jankvisor
   vars:
     yay_srcdir: /tmp
   tasks:
@@ -13,7 +13,7 @@
 
     - name: Install arch distro common
       ansible.builtin.include_role:
-        name: arch_common
+        name: common
 
     - name: Install arch distro graphics common
       ansible.builtin.include_role:

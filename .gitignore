@@ -5,3 +5,5 @@ secretenvrc.sh
 .envrc
 __pycache__
 ansible/.venv
+.venv
+.dependancys

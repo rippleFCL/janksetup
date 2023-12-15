@@ -1,0 +1,20 @@
+---
+- name: "Install graphic packages"
+  kewlfft.aur.aur:
+    use: yay
+    update_cache: true
+    name:
+      - discord
+      - dunst
+      - escrotum
+      - firefox
+      - gnome-font-viewer
+      - kitty
+      - nvidia
+      - nvidia-utils
+      - pywal-16-colors
+      - sddm
+      - spotify-launcher
+      - visual-studio-code-bin
+      - graphviz
+      - prismlauncher-git

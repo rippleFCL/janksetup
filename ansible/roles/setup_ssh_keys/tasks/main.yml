@@ -15,4 +15,5 @@
     mode: '0600'
     owner: "{{ guest_username }}"
     group: "{{ guest_username }}"
+  no_log: true
   become: true

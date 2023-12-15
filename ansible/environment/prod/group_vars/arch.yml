@@ -1,4 +1,1 @@
 chezmoi_init_url: git@github.com:rippleFCL/dotfiles.git
-home_dirs:
-  - Pictures
-  - Documents
