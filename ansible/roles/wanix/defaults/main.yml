@@ -1,0 +1,142 @@
+wanix_customizations:
+  - name: upgrade_os
+    roles:
+      - upgrade_os
+
+  - name: bootstrap_machine
+    roles:
+      - setup_networking
+      - install_bootstrap_tools
+      - bootstrap_machine_users
+      - post_machine_setup
+      - setup_ssh_keys
+      - setup_deb_sources
+
+  - name: cli_base_tools
+    packages:
+      - nano
+      - nmap
+      - unzip
+      - curl
+      - neofetch
+
+    roles:
+      - name: install_zsh
+        provides_pkgs:
+          - zsh
+
+  - name: cli_dev_tools
+    apt_sources:
+      - name: hashicorp
+        key_url: https://apt.releases.hashicorp.com/gpg
+        key_dest: "/etc/apt/trusted.gpg.d/hashicorp.asc"
+        repo_str: deb [signed-by=/etc/apt/trusted.gpg.d/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+    packages:
+      - packer
+      - terraform
+      - sshpass
+      - direnv
+      - name: docker
+        deb_install: false
+    roles:
+      - name: install_bsm
+        provides_pkgs:
+          - bsm
+      - name: geerlingguy.docker
+        arch_install: false
+        provides_pkgs:
+          - docker
+
+  - name: nvidia_drivers
+    packages:
+      - nvidia-vaapi-driver
+      - nvidia-driver
+      - firmware-misc-nonfree
+
+  - name: x_server
+    packages:
+      - xorg
+      - xinit
+
+  - name: graphical_common
+    packages:
+      - name: firefox
+        deb_install: firefox-esr
+      - kitty
+      - sddm
+      - gnome-font-viewer
+      - name: fonts-urw-base35
+        arch_install: false
+      - name: gsfonts
+        deb_install: false
+
+    roles:
+      - name: setup_sddm
+
+  - name: graphical_dev
+    apt_sources:
+      - name: vscode
+        key_url: https://packages.microsoft.com/keys/microsoft.asc
+        key_dest: "/etc/apt/trusted.gpg.d/microsoft.asc"
+        repo_str: deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/code stable main
+    packages:
+      - name: code
+        arch_install: visual-studio-code-bin
+
+  - name: graphical_social
+    packages:
+      - name: discord
+        deb_install: false
+    roles:
+      - name: install_discord
+        arch_install: false
+        provides_pkgs:
+          - discord
+
+  - name: graphical_sound
+    apt_sources:
+      - name: spotify
+        key_url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
+        key_dest: /etc/apt/trusted.gpg.d/spotify.asc
+        repo_str: deb [signed-by=/etc/apt/trusted.gpg.d/spotify.asc] http://repository.spotify.com stable non-free
+    packages:
+      - easyeffects
+      - pavucontrol
+      - name: spotify-client
+        arch_install: false
+      - name: spotify-launcher
+        deb_install: false
+  - name: sound_server
+    roles:
+      - name: install_pipewire_audio
+        provides_pkgs:
+          - pipewire
+
+  - name: meaditha
+    packages:
+      - bspwm
+      - sxhkd
+      - polybar
+      - rofi
+      - nitrogen
+      - dunst
+      - rxvt-unicode
+      - imagemagick
+
+    pip_packages:
+      - escrotum
+      - name: pywal16
+        install: git+https://github.com/eylles/pywal16
+
+    roles:
+      - add_fonts
+  - name: old_af_gpu_patch
+    roles:
+      - old_af_gpu_patch
+
+
+wanix_default_customizations:
+  - bootstrap_machine
+
+wanix_include_customizations: []
+wanix_extra_customizations: []

@@ -10,21 +10,23 @@
 
     - name: Make yay build dir
       ansible.builtin.file:
-        path: "{{ yay_srcdir }}/yay"
+        path: "/tmp/yay"
         state: directory
-        owner: ansible
-        group: ansible
+        owner: ripple
+        group: ripple
         mode: '0700'
       become: true
 
     - name: Clone yay # noqa latest[git]
       ansible.builtin.git:
         repo: https://aur.archlinux.org/yay-bin.git
-        dest: "{{ yay_srcdir }}/yay/"
+        dest: "/tmp/yay/"
         update: true
 
     - name: Build and install yay
+      become_user: ripple
+      become: true
       ansible.builtin.command:
-        chdir: "{{ yay_srcdir }}/yay"
+        chdir: "/tmp/yay"
         cmd: "makepkg -sfi --noconfirm"
         creates: /usr/bin/yay

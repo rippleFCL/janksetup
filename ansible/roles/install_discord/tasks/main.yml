@@ -1,0 +1,5 @@
+---
+- name: Run distro specific discord install
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_facts['os_family'] }}.yml"
+

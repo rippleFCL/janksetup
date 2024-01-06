@@ -1,0 +1,19 @@
+---
+- name: Add GPG Key for {{ source.name }}
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ source.key_url }}"
+    dest: "{{ source.key_dest }}"
+    mode: "0644"
+    force: true
+  register: add_apt_key
+  when: source.key_url is defined
+  until: add_apt_key is succeeded
+  retries: 2
+  delay: 2
+
+- name: Add repo for {{ source.name }}
+  become: true
+  ansible.builtin.apt_repository:
+    filename: "{{ source.name }}"
+    repo: "{{ source.repo_str }}"

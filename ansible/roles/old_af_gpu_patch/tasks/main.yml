@@ -1,0 +1,7 @@
+---
+- name: Make libgl not use hardware axel
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    regexp: "^LIBGL_ALWAYS_SOFTWARE=true"
+    line: "LIBGL_ALWAYS_SOFTWARE=true"
+    state: present

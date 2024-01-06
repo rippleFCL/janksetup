@@ -4,3 +4,7 @@
     - name: "Configer the pcie devices"
       ansible.builtin.include_role:
         name: "configure_pcie_devices"
+
+    - name: Install sound server
+      ansible.builtin.include_role:
+        name: install_pipewire_audio

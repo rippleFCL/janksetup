@@ -1,0 +1,14 @@
+{% set components = setup_deb_sources_components | join(' ') %}
+deb http://deb.debian.org/debian {{ ansible_distribution_release }} {{ components }}
+deb-src http://deb.debian.org/debian {{ ansible_distribution_release }} {{ components }}
+
+{% if ansible_distribution_major_version <= '10' %}
+deb http://security.debian.org/debian-security/ {{ ansible_distribution_release }}/updates {{ components }}
+deb-src http://security.debian.org/debian-security/ {{ ansible_distribution_release }}/updates {{ components }}
+{% else %}
+deb http://security.debian.org/debian-security/ {{ ansible_distribution_release }}-security {{ components }}
+deb-src http://security.debian.org/debian-security/ {{ ansible_distribution_release }}-security {{ components }}
+{% endif %}
+
+deb http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ components }}
+deb-src http://deb.debian.org/debian {{ ansible_distribution_release }}-updates {{ components }}

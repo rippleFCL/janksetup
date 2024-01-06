@@ -1,0 +1,7 @@
+---
+- name: Install Fonts
+  ansible.builtin.include_tasks:
+    file: add_font.yml
+  loop: "{{ add_fonts_by_url }}"
+  loop_control:
+    loop_var: font

@@ -1,0 +1,31 @@
+---
+- name: Run roles for {{ customization.name }}
+  ansible.builtin.include_role:
+    apply:
+      tags: wanix_roles
+    name: "{{ role }}"
+  when: customization.roles is defined
+  loop: "{{ customization.roles }}"
+  loop_control:
+    loop_var: "role"
+  tags: wanix_roles
+
+- name: Install pip Packages for {{ customization.name }}
+  become_user: ripple
+  become: true
+  ansible.builtin.pip:
+    name: "{{ customization.pip_packages }}"
+    extra_args: --user --break-system-packages
+  when: customization.pip_packages is defined and customization.pip_packages
+  tags: wanix_pip
+
+- name: Install yay Packages for {{ customization.name }}
+  become_user: ripple
+  become: true
+  kewlfft.aur.aur:
+    use: yay
+    update_cache: true
+    name: "{{ customization.packages }}"
+    state: present
+  when: customization.packages is defined and customization.packages
+  tags: wanix_apt

@@ -1,10 +1,11 @@
 ---
 - name: Bootstrap vm template
-  hosts: default
+  hosts: arch-template
   become: true
   vars:
   roles:
-    - bootstrap_vm_users
+    - install_bootstrap_tools
+    - post_machine_setup
 
   tasks:
     - name: Add static ip
@@ -15,8 +16,3 @@
         ip4: 10.0.5.9/24
         gw4: 10.0.5.1
         state: present
-
-    - name: disable dhcpd
-      ansible.builtin.systemd:
-        name: "dhcpcd@{{ interface_name }}"
-        enabled: false

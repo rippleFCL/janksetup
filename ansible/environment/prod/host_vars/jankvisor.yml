@@ -69,17 +69,13 @@ cpuinfo:
   secondary: 32
 
 memoryinfo:
-  primary: 14000
-  secondary: 16000
+  primary: 13000
+  secondary: 15000
 
 audioinfo:
   primary:
     - type: duplex
       input: alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
-    - type: output
-      output: alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
   secondary:
     - type: duplex
       input: alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
-    - type: output
-      output: alsa_output.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo

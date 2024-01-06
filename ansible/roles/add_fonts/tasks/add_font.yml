@@ -1,0 +1,29 @@
+---
+- name: Check if font exits
+  ansible.builtin.stat:
+    path: /usr/share/fonts/{{ font.name }}
+  register: stat
+
+- name: Install missing font
+  when: not stat.stat.exists
+  block:
+    - name: Grab font from url
+      ansible.builtin.get_url:
+        url: "{{ font.url }}"
+        dest: /tmp/{{ font.name }}
+        mode: '0600'
+      register: font_download
+
+    - name: Creat font dir
+      ansible.builtin.file:
+        path: /usr/share/fonts/{{ font.name }}
+        state: directory
+        owner: root
+        mode: "755"
+
+    - name: Install font
+      ansible.builtin.unarchive:
+        src: "{{ font_download.dest }}"
+        remote_src: true
+        dest: /usr/share/fonts/{{ font.name }}
+      notify: Font reload

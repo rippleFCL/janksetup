@@ -1,0 +1,7 @@
+- name: Template sources.list
+  ansible.builtin.template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+    mode: '0644'
+    owner: root
+  when: ansible_distribution == 'Debian'

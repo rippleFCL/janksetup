@@ -1,0 +1,2 @@
+setup_deb_sources_components: >-
+  {{ (['main', 'non-free-firmware'] + setup_deb_sources_extra_components) | unique }}

@@ -65,3 +65,9 @@
     line: "memory: {{ memoryinfo[type] }}"
     regexp: "^memory"
 
+- name: "Remove balooning "
+  ansible.builtin.lineinfile:
+    dest: "/etc/pve/qemu-server/{{ vmid }}.conf"
+    state: present
+    line: "balloon: 0"
+    regexp: "^balloon"

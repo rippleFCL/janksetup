@@ -1,0 +1,14 @@
+hostname: meaditha-debtest
+
+setup_networking_interfaces:
+  - name: enp9s0
+    method: auto
+
+interface_name: enp9s0
+
+wanix_extra_customizations:
+  - graphical_sound
+  - graphical_common
+  - graphical_social
+  - graphical_dev
+  - old_af_gpu_patch

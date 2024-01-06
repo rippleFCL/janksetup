@@ -1,5 +1,5 @@
-iso_url           = "http://www.mirrorservice.org/sites/ftp.archlinux.org/iso/2023.12.01/archlinux-2023.12.01-x86_64.iso"
-iso_checksum      = "50c688670abf27345b3effa03068b0302810f8da0db80d06d11a932c3ef99056"
+iso_url           = "http://lon.mirror.rackspace.com/archlinux/iso/2024.01.01/archlinux-2024.01.01-x86_64.iso"
+iso_checksum      = "12addd7d4154df1caf5f258b80ad72e7a724d33e75e6c2e6adc1475298d47155"
 iso_checksum_type = "sha256"
 guest_username    = "ripple"
 ansible_username  = "ansible"

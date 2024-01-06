@@ -1,0 +1,19 @@
+wanix_include_customizations:
+  - cli_base_tools
+  - cli_dev_tools
+  - x_server
+  - sound_server
+  - meaditha
+
+add_fonts_by_url:
+  - name: meslo
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.zip
+  - name: jbmono
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+  - name: maple
+    url: https://github.com/subframe7536/maple-font/releases/download/v6.4.1/MapleMono-SC-NF.zip
+  - name: maple_mono
+    url: https://github.com/subframe7536/maple-font/releases/download/v6.4.1/MapleMono-NF.zip
+  - name: adobe_source_code_pro
+    url: https://github.com/adobe-fonts/source-code-pro/releases/download/2.042R-u%2F1.062R-i%2F1.026R-vf/TTF-source-code-pro-2.042R-u_1.062R-i.zip
+bsm_install_path: /tmp/bsm

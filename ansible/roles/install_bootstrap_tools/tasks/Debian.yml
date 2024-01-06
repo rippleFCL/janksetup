@@ -1,0 +1,28 @@
+- name: Install git
+  ansible.builtin.apt:
+    name:
+      - git
+      - psmisc
+      - linux-headers-amd64
+      - dkms
+      - build-essential
+      - python3-pip
+    update_cache: true
+    state: present
+
+- name: Ensure github.com is a known host
+  ansible.builtin.lineinfile:
+    dest: "/home/ripple/.ssh/known_hosts"
+    create: true
+    state: present
+    group: "ripple"
+    owner: "ripple"
+    line: "{{ lookup('pipe', 'ssh-keyscan -t ' + item + ' github.com') }}"
+    mode: "0600"
+    regexp: "^github\\.com {{ item }}"
+  loop: ["ecdsa-sha2-nistp256", "ssh-ed25519", "ssh-rsa"]
+
+- name: Add safe directorys
+  community.general.git_config:
+    name: safe.directory
+    value: "*"

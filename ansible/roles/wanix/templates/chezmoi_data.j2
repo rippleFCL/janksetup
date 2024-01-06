@@ -1,0 +1,11 @@
+{% set tot_customizations=wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations %}
+data:
+{% for package, included in wanix_customizations | cd_package_extractor(tot_customizations, ansible_facts['os_family']) %}
+    has_package_{{ package }}: {{ included }}
+{% endfor -%}
+{% for package, included in wanix_customizations | cd_app_name_extractor(tot_customizations) %}
+    has_application_{{ package }}: {{ included }}
+{% endfor -%}
+{% for customization in wanix_customizations %}
+    has_customization_{{ customization["name"] }}: {{ customization["name"] in tot_customizations }}
+{% endfor %}

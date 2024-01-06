@@ -1,0 +1,30 @@
+---
+- name: Create chezmoi config file
+  ansible.builtin.file:
+    path: /home/ripple/.config/chezmoi/
+    state: directory
+    owner: "ripple"
+    group: "ripple"
+    mode: "0744"
+  become: true
+
+- name: Add chezmoi config
+  ansible.builtin.template:
+    src: chezmoi_data.j2
+    dest: /home/ripple/.config/chezmoi/chezmoi.yml
+    mode: '0644'
+    owner: ripple
+
+- name: Include distro specific customizations
+  ansible.builtin.include_tasks:
+    apply:
+      tags: wanix_roles
+    file: "{{ ansible_facts['os_family'] }}_customize.yml"
+  when: customization.name in wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations
+  loop: "{{ wanix_customizations | customizations_flattener(ansible_facts['os_family']) }}"
+  loop_control:
+    loop_var: customization
+
+- name: Run chezmoi
+  ansible.builtin.include_role:
+    name: run_chezmoi

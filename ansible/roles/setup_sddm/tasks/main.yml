@@ -1,0 +1,6 @@
+---
+- name: Enable sddm
+  ansible.builtin.systemd:
+    name: sddm.service
+    enabled: true
+    state: started

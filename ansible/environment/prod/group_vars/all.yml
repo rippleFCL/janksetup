@@ -1,7 +1,22 @@
 internal_domain: home.lan
+
 ansible_ssh_user: ansible
+
+ansible_username: ansible
+ansible_password: "{{ lookup('cached', 'community.general.bitwarden_secrets_manager', '12d5107d-1de2-4e86-8812-b0de010220b9').value }}"
+
+guest_username: ripple
+guest_password: "{{ lookup('cached', 'community.general.bitwarden_secrets_manager', '12d5107d-1de2-4e86-8812-b0de010220b9').value }}"
+
 ansible_ssh_common_args: >-
   -C
   -o ControlMaster=auto
   -o ControlPersist=60s
 domain: home.lan
+
+docker_users:
+  - ripple
+
+setup_deb_sources_extra_components:
+  - contrib
+  - non-free

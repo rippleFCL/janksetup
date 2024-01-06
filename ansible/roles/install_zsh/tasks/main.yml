@@ -5,45 +5,45 @@
 
 - name: Check if omz exists
   ansible.builtin.stat:
-    path: /home/{{ guest_username }}/.oh-my-zsh
+    path: /home/ripple/.oh-my-zsh
   register: st
   become: true
 
-- name: install zsh and omz
+- name: Install zsh and omz
   when: not st.stat.exists
   block:
 
-    - name: clone oh my zsh
+    - name: Clone oh my zsh
       become: true
       ansible.builtin.git:
         repo: https://github.com/ohmyzsh/ohmyzsh.git
-        dest: /home/{{ guest_username }}/.oh-my-zsh
+        dest: /home/ripple/.oh-my-zsh
 
 
     - name: Set default shell for users
       become: true
       ansible.builtin.user:
-        name: '{{ guest_username }}'
+        name: 'ripple'
         shell: '/bin/zsh'
 
-    - name: clone p10k
+    - name: Clone p10k
       become: true
       ansible.builtin.git:
         repo: https://github.com/romkatv/powerlevel10k.git
-        dest: /home/{{ guest_username }}/.oh-my-zsh/custom/themes/powerlevel10k
+        dest: /home/ripple/.oh-my-zsh/custom/themes/powerlevel10k
 
-    - name: clone plugins
+    - name: Clone plugins
       become: true
       ansible.builtin.git:
         repo: "{{ item.value }}"
-        dest: /home/{{ guest_username }}/.oh-my-zsh/custom/plugins/{{ item.key }}
-      with_dict: "{{ omz_plugins }}"
+        dest: /home/ripple/.oh-my-zsh/custom/plugins/{{ item.key }}
+      with_dict: "{{ install_zsh_plugins }}"
 
     - name: Set oh my zsh perms
       become: true
       ansible.builtin.file:
-        path: "/home/{{ guest_username }}/.oh-my-zsh"
+        path: "/home/ripple/.oh-my-zsh"
         mode: 'go-w'
-        owner: "{{ guest_username }}"
-        group: "{{ guest_username }}"
+        owner: "ripple"
+        group: "ripple"
         recurse: true

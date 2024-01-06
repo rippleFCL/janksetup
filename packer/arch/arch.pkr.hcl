@@ -82,6 +82,8 @@ build {
   }
 
   provisioner "ansible" {
+    host_alias = "arch-template"
+
     playbook_file       = "../../ansible/playbooks/packer/bootstrap-arch-image.yml"
     use_proxy           = false
     ansible_env_vars    = ["ANSIBLE_CONFIG=../../ansible/ansible.cfg"]

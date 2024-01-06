@@ -1,0 +1,12 @@
+---
+- name: Grab discord deb package from url
+  ansible.builtin.get_url:
+    url: "https://discord.com/api/download?platform=linux&format=deb"
+    dest: /tmp/
+    mode: '0600'
+  register: discord_download
+
+- name: Install discord
+  ansible.builtin.apt:
+    deb: "{{ discord_download.dest }}"
+    state: present

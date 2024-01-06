@@ -1,0 +1,6 @@
+- name: "Update system os"
+  kewlfft.aur.aur:
+    use: yay
+    upgrade: true
+    update_cache: true
+  notify: Reboot machine
