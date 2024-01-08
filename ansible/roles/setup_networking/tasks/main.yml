@@ -11,3 +11,12 @@
     state: present
   loop: "{{ setup_networking_interfaces }}"
   become: true
+
+- name: Add static ip
+  community.general.nmcli:
+    conn_name: "{{ interface_name }}"
+    ifname: "{{ interface_name }}"
+    type: ethernet
+    ip4: 10.0.5.9/24
+    gw4: 10.0.5.1
+    state: absent
