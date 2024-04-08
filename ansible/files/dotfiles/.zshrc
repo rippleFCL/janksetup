@@ -21,6 +21,8 @@ plugins=(
     zsh-syntax-highlighting
 #    zsh-autocomplete
     ssh-agent
+    gpg-agent
+
     z
 )
 
