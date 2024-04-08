@@ -4,3 +4,14 @@
     name: sddm.service
     enabled: true
     state: started
+    
+- name: Install sddm deps
+  ansible.builtin.include_tasks:
+    file: install_deps.yml
+  when: setup_sddm_theme is defined
+
+- name: Install sddm theme
+  ansible.builtin.include_tasks:
+    file: install_theme.yml
+  when: setup_sddm_theme is defined
+

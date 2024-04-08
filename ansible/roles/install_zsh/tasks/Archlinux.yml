@@ -1,6 +1,0 @@
-- name: Install zsh
-  kewlfft.aur.aur:
-    use: yay
-    update_cache: true
-    name:
-      - zsh

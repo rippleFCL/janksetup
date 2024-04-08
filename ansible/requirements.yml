@@ -5,3 +5,4 @@ roles:
   - name: geerlingguy.docker
   - name: diodonfrost.terraform
   - name: kilip.chezmoi
+  - name: OndrejHome.targetcli-modules

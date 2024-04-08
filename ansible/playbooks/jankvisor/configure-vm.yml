@@ -1,6 +1,9 @@
 - name: "Configure hypervisor"
   hosts: jankvisor
+  vars_prompt:
+
   tasks:
-    - name: "Configer the bspwm vm"
-      ansible.builtin.include_role:
-        name: configure_vm_config
+    - name: "Configure vm"
+    # - name: "Configer the bspwm vm"
+    #   ansible.builtin.include_role:
+    #     name: configure_vm_config

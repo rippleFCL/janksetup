@@ -1,5 +1,27 @@
 ---
-- name: Run distro specific config
-  ansible.builtin.include_tasks:
-    file: "{{ ansible_facts['os_family'] }}.yml"
+- name: Install base packages
+  community.general.pacman:
+    name:
+      - git
+      - linux-headers
+      - python-pip
+    state: present
 
+- name: Ensure github.com is a known host
+  become: true
+  ansible.builtin.lineinfile:
+    dest: "/home/ripple/.ssh/known_hosts"
+    create: true
+    state: present
+    group: "ripple"
+    owner: "ripple"
+    line: "{{ lookup('pipe', 'ssh-keyscan -t ' + item + ' github.com') }}"
+    mode: "0600"
+    regexp: "^github\\.com {{ item }}"
+  loop: ["ecdsa-sha2-nistp256", "ssh-ed25519", "ssh-rsa"]
+
+- name: Add safe directorys
+  community.general.git_config:
+    name: safe.directory
+    value: "*"
+  become: true

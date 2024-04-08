@@ -11,8 +11,8 @@ locals {
   enable_ssh = {
     "/install.sh" = templatefile("${abspath(path.root)}/config/install.sh", {})
     "/bootstrap-system.sh" = templatefile("${abspath(path.root)}/config/bootstrap-system.sh", {
-      username     = var.guest_username
-      password     = var.guest_password
+      username     = var.ansible_username
+      password     = var.ansible_password
     })
 
   }
@@ -60,16 +60,17 @@ source "proxmox-iso" "arch-deployment" {
     }
   }
 
-  memory = 2000
+  memory = 4000
   cores = 16
   node                 = var.proxmox_node
   token                = var.proxmox_token
   proxmox_url          = "https://${var.proxmox_url}/api2/json"
   username             = var.proxmox_username
 
-  ssh_password         = var.guest_password
+  ssh_password         = var.ansible_password
   ssh_timeout          = var.ssh_timeout
-  ssh_username         = var.guest_username
+  ssh_username         = var.ansible_username
+
 
   template_description = "arch templated made on: ${timestamp()}"
   unmount_iso          = true
@@ -77,30 +78,25 @@ source "proxmox-iso" "arch-deployment" {
 
 build {
   source "source.proxmox-iso.arch-deployment"{
-    template_name = "arch-deployment"
+    template_name = "arch-template"
+    vm_name = "arch-template"
     vm_id = 3000
   }
+  name    = "arch-template"
 
   provisioner "ansible" {
-    host_alias = "arch-template"
-
     playbook_file       = "../../ansible/playbooks/packer/bootstrap-arch-image.yml"
     use_proxy           = false
     ansible_env_vars    = ["ANSIBLE_CONFIG=../../ansible/ansible.cfg"]
     extra_arguments     = [
+
       "-e",
-      "ansible_password=${var.ansible_password}",
+      "ansible_ssh_pass=${var.ansible_password}",
       "-e",
-      "ansible_username=${var.ansible_username}",
-      "-e",
-      "ansible_ssh_pass=${var.guest_password}",
-      "-e",
-      "ansible_ssh_user=${var.guest_username}",
-      "-e",
-      "guest_username=${var.guest_username}"
+      "ansible_ssh_user=${var.ansible_username}",
 
     ]
-    inventory_directory = var.ansible_inventory_dir
+    inventory_file = var.ansible_inventory_dir
   }
 
 }

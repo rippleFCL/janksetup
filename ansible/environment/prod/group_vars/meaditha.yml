@@ -4,6 +4,7 @@ wanix_include_customizations:
   - x_server
   - sound_server
   - meaditha
+  - configure_iscsi_disks
 
 add_fonts_by_url:
   - name: meslo
@@ -16,4 +17,50 @@ add_fonts_by_url:
     url: https://github.com/subframe7536/maple-font/releases/download/v6.4.1/MapleMono-NF.zip
   - name: adobe_source_code_pro
     url: https://github.com/adobe-fonts/source-code-pro/releases/download/2.042R-u%2F1.062R-i%2F1.026R-vf/TTF-source-code-pro-2.042R-u_1.062R-i.zip
+
+
+wanix_file_copys:
+  - ./dotfiles/
+
+wanix_file_destinations:
+  - source: dotfiles/
+    home_relative: /
+    mode: "0644"
+    user: ripple
+    group: ripple
+  - source: dotfiles/.config/bspwm/bspwmrc
+    mode: "0744"
+  - source: .sh
+    mode: "0744"
+
+
+wanix_file_depmap:
+  - path: dotfiles/.config/bspwm
+    packages: [bspwm]
+  - path: dotfiles/.config/dunst
+    packages: [dunst]
+  - path: dotfiles/.config/kitty
+    packages: [kitty]
+  - path: dotfiles/.config/neofetch
+    packages: [neofetch]
+  - path: dotfiles/.config/nitrogen
+    packages: [nitrogen]
+  - path: dotfiles/.config/polybar
+    packages: [polybar]
+  - path: dotfiles/.config/rofi
+    packages: [rofi]
+  - path: dotfiles/.config/sxhkd
+    packages: [sxhkd]
+
+
+wanix_user: ripple
+
 bsm_install_path: /tmp/bsm
+
+setup_sddm_theme: sugar-candy
+
+configure_iscsi_disks_targets:
+  - target: iqn.1994-05.com.redhat:linux
+    portal: "10.0.1.45"
+
+configure_iscsi_disks_initiator_name: iqn.2016-04.com.open-iscsi:linux-vm

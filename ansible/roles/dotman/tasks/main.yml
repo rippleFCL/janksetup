@@ -1,0 +1,16 @@
+---
+- name: Copy dotfiles
+  ansible.builtin.include_tasks:
+    file: copy_files.yml
+  vars:
+    dotman_files: >-
+      {{ lookup('community.general.filetree', item) |
+      file_copy_processor(
+        dotman_installed_packages,
+        dotman_installed_custiomizations,
+        dotman_file_destinations,
+        dotman_file_depmap,
+        '/home/ripple'
+      )
+      }}
+  loop: "{{ dotman_file_copys }}"

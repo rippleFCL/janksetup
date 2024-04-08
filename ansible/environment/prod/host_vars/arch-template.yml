@@ -1,2 +1,6 @@
-interface_name: enp6s18
-hostname: arch-template
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+setup_uwusers_definitions:
+  - username: ansible
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ansible_user_hashed_password').value }}"
+    ssh_keys: ["{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"]

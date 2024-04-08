@@ -1,0 +1,43 @@
+---
+- name: Install Package for open-iscsi
+  become_user: ripple
+  become: true
+  kewlfft.aur.aur:
+    use: yay
+    name: open-iscsi
+    state: present
+
+- name: Set iscsi initiator name
+  ansible.builtin.lineinfile:
+    dest: "/etc/iscsi/initiatorname.iscsi"
+    state: present
+    line: "InitiatorName={{ configure_iscsi_disks_initiator_name }}"
+    regexp: "^InitiatorName="
+
+- name: Enable iscsi autostart
+  ansible.builtin.lineinfile:
+    dest: "/etc/iscsi/iscsid.conf"
+    state: present
+    line: "node.startup = automatic"
+    regexp: "^node.startup ="
+
+- name: Enable and start iscsi service
+  ansible.builtin.systemd:
+    name: iscsid.service
+    enabled: true
+    state: started
+
+- name: Enable and start iscsi daemon
+  ansible.builtin.systemd:
+    name: iscsi.service
+    enabled: true
+
+
+- name: Connect iscsi disks
+  community.general.open_iscsi:
+    login: true
+    discover: true
+    portal: "{{ item.portal }}"
+    auto_portal_startup: true
+    target: "{{ item.target }}"
+  loop: "{{ configure_iscsi_disks_targets }}"

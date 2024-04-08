@@ -1,19 +1,8 @@
 ---
-- name: Create chezmoi config file
-  ansible.builtin.file:
-    path: /home/ripple/.config/chezmoi/
-    state: directory
-    owner: "ripple"
-    group: "ripple"
-    mode: "0744"
-  become: true
+- name: Including customizations
+  ansible.builtin.debug:
+    msg: "{{ wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations }}"
 
-- name: Add chezmoi config
-  ansible.builtin.template:
-    src: chezmoi_data.j2
-    dest: /home/ripple/.config/chezmoi/chezmoi.yml
-    mode: '0644'
-    owner: ripple
 
 - name: Include distro specific customizations
   ansible.builtin.include_tasks:
@@ -25,6 +14,12 @@
   loop_control:
     loop_var: customization
 
-- name: Run chezmoi
+- name: Run dotfile manager dotman
   ansible.builtin.include_role:
-    name: run_chezmoi
+    name: dotman
+  vars:
+    dotman_installed_packages: "{{ wanix_customizations | cd_package_extractor(wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations, ansible_facts['os_family']) }}"
+    dotman_installed_custiomizations: "{{ wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations }}"
+    dotman_file_destinations: "{{ wanix_file_destinations }}"
+    dotman_file_depmap: "{{ wanix_file_depmap }}"
+    dotman_file_copys: "{{ wanix_file_copys }}"

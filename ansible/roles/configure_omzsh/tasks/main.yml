@@ -1,0 +1,44 @@
+---
+- name: Check if omz exists
+  ansible.builtin.stat:
+    path: /home/ripple/.oh-my-zsh
+  register: st
+  become: true
+
+- name: Install omzsh
+  when: not st.stat.exists
+  block:
+    - name: Clone oh my zsh
+      become: true
+      ansible.builtin.git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: /home/ripple/.oh-my-zsh
+
+
+    - name: Set default shell for users
+      become: true
+      ansible.builtin.user:
+        name: 'ripple'
+        shell: '/bin/zsh'
+
+    - name: Clone p10k
+      become: true
+      ansible.builtin.git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: /home/ripple/.oh-my-zsh/custom/themes/powerlevel10k
+
+    - name: Clone plugins
+      become: true
+      ansible.builtin.git:
+        repo: "{{ item.value }}"
+        dest: /home/ripple/.oh-my-zsh/custom/plugins/{{ item.key }}
+      with_dict: "{{ install_zsh_plugins }}"
+
+    - name: Set oh my zsh perms
+      become: true
+      ansible.builtin.file:
+        path: "/home/ripple/.oh-my-zsh"
+        mode: 'go-w'
+        owner: "ripple"
+        group: "ripple"
+        recurse: true

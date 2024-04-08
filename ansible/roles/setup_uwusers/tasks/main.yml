@@ -1,0 +1,30 @@
+---
+- name: 'Make ansible user'
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    shell: "{{ item.shell }}"
+    create_home: true
+  loop: "{{ setup_uwusers_definitions }}"
+  loop_control:
+    label: "{{ item.username }}"
+
+- name: 'Add ansible user to suderos'
+  community.general.sudoers:
+    name: "{{ item.username }}-user"
+    state: present
+    user: "{{ item.username }}"
+    commands: ALL
+  when: "item.sudo | default(false)"
+  loop: "{{ setup_uwusers_definitions }}"
+  loop_control:
+    label: "{{ item.username }}"
+
+
+- name: Set ripple users autherised ssh key
+  ansible.builtin.include_tasks:
+    file: setup_ssh_keys.yml
+  loop: "{{ setup_uwusers_definitions }}"
+  loop_control:
+    loop_var: "userdata"
+    label: "{{ userdata.username }}"

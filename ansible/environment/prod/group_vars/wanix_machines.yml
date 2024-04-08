@@ -1,0 +1,125 @@
+wanix_customizations:
+  - name: bootstrap_machine
+    roles:
+      - post_clone_setup
+      - setup_uwusers
+
+  - name: setup_base_environment
+    packages:
+      - networkmanager
+    roles:
+      - setup_nmcli
+      - install_bootstrap_tools
+      - install_yay
+
+  - name: cli_base_tools
+    packages:
+      - bind
+      - nano
+      - nmap
+      - unzip
+      - curl
+      - neofetch
+      - calc
+      - zsh
+
+    roles:
+      - name: configure_omzsh
+
+
+  - name: cli_dev_tools
+    packages:
+      - packer
+      - terraform
+      - sshpass
+      - direnv
+      - docker
+    roles:
+      - name: install_bsm
+        provides_pkgs:
+          - bsm
+
+  - name: nvidia_drivers
+    packages:
+      - nvidia-vaapi-driver
+      - nvidia-driver
+      - firmware-misc-nonfree
+
+  - name: x_server
+    packages:
+      - xorg
+      - xinit
+
+  - name: graphical_common
+    packages:
+      - firefox
+      - sddm
+      - gnome-font-viewer
+      - gsfonts
+
+    roles:
+      - name: setup_sddm
+
+  - name: graphical_dev
+    packages:
+      - visual-studio-code-bin
+
+  - name: graphical_social
+    packages:
+      - discord
+
+  - name: graphical_sound
+    packages:
+      - easyeffects
+      - pavucontrol
+      - spotify-launcher
+  - name: sound_server
+    roles:
+      - name: install_pipewire_audio
+        provides_pkgs:
+          - pipewire
+
+  - name: meaditha
+    packages:
+      - bspwm
+      - sxhkd
+      - polybar
+      - rofi
+      - nitrogen
+      - dunst
+      - rxvt-unicode
+      - imagemagick
+      - kitty
+
+    pip_packages:
+      - escrotum
+      - name: pywal16
+        install: git+https://github.com/eylles/pywal16
+
+    roles:
+      - add_fonts
+
+  - name: configure_iscsi_disks
+    roles:
+      - configure_iscsi_disks
+
+  - name: old_af_gpu_patch
+    roles:
+      - old_af_gpu_patch
+
+
+wanix_default_customizations:
+  - bootstrap_machine
+  - setup_base_environment
+
+setup_uwusers_definitions:
+  - username: ripple
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ripple_user_hashed_password').value }}"
+    ssh_keys: ["{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"]
+    shell: /bin/zsh
+  - username: ansible
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ansible_user_hashed_password').value }}"
+    ssh_keys: ["{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"]
+    shell: /bin/bash

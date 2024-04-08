@@ -1,0 +1,19 @@
+- name: "Configure jankvisors"
+  hosts: jankvisor-iscsi
+  become: true
+  tasks:
+    - name: Post machine setup
+      ansible.builtin.include_role:
+        name: post_machine_setup
+
+    - name: Install targetcli deps
+      ansible.builtin.include_role:
+        name: OndrejHome.targetcli-modules
+
+    - name: Setup targetcli exports
+      ansible.builtin.include_role:
+        name: targetcli
+
+    - name: Setup networking
+      ansible.builtin.include_role:
+        name: nmcli

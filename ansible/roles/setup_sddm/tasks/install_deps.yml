@@ -1,0 +1,7 @@
+---
+- name: "Install arch deps for theme: {{ setup_sddm_theme }}"
+  kewlfft.aur.aur:
+    use: yay
+    update_cache: true
+    name: "{{ setup_sddm_deps[setup_sddm_theme]}}"
+    state: present

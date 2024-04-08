@@ -8,7 +8,7 @@ proxmox_url       = "10.0.1.30:8006"
 proxmox_node      = "pve-workstation"
 disk_pool         = "local-lvm"
 iso_storage_pool  = "local"
-disk_size         = "20G"
+disk_size         = "1000G"
 vm_ip_addr        = "10.0.5.30/24"
 
 ansible_inventory_dir = "../../ansible/environment/prod"
@@ -18,6 +18,6 @@ network_adaptors = [
     {
         driver  = "virtio",
         adapter = "vmbr0",
-        vlan    = 70
+        vlan    = 10
     }
 ]

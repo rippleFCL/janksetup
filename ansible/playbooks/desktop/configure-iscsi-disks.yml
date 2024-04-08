@@ -1,0 +1,19 @@
+- name: Add new host to target
+  hosts: localhost
+  gather_facts: false
+  vars_prompt:
+    - name: target_host
+      prompt: please enter the target host hostname
+      private: false
+  tasks:
+    - name: Add new host
+      ansible.builtin.add_host:
+        name: "{{ target_host }}"
+        groups: dynamically_created_hosts
+
+- name: Configure iscsi
+  hosts: dynamically_created_hosts
+  tasks:
+    - name: Configure iscsi disks
+      ansible.builtin.include_role:
+        name: configure_iscsi_disks

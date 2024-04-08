@@ -95,13 +95,12 @@ source "null" "testing" {
 
 build {
   source "source.proxmox-iso.debian_12"{
-    template_name = "debian-deployment"
+    template_name = "debian-desktop-base"
     vm_id = 3001
   }
 
   name    = "template"
   provisioner "ansible" {
-    host_alias = "debian-template"
     playbook_file = "../../ansible/playbooks/packer/bootstrap-debian-image.yml"
     use_proxy = false
     extra_arguments     = [
@@ -120,7 +119,7 @@ build {
 
     ]
     ansible_env_vars = ["ANSIBLE_CONFIG=../../ansible/ansible.cfg"]
-    inventory_directory = var.ansible_inventory_dir
+    inventory_file = var.ansible_inventory_dir
   }
 }
 

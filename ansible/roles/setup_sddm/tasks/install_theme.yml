@@ -1,0 +1,34 @@
+---
+- name: Creat theme dir
+  ansible.builtin.file:
+    path: /usr/share/sddm/themes/{{ setup_sddm_theme }}
+    state: directory
+    owner: root
+    mode: "755"
+
+- name: Unarchive the theme
+  ansible.builtin.unarchive:
+    src: "{{ setup_sddm_theme }}.tar.gz"
+    dest: "/usr/share/sddm/themes/"
+
+- name: Creat setting dir
+  ansible.builtin.file:
+    path: /etc/sddm.conf.d/
+    state: directory
+    owner: root
+    mode: "755"
+
+- name: Add stat file
+  ansible.builtin.file:
+    modification_time: preserve
+    access_time: preserve
+    path: /etc/sddm.conf.d/theme.conf
+    state: touch
+    mode: "0644"
+
+- name: Set sddms theme
+  ansible.builtin.blockinfile:
+    path: /etc/sddm.conf.d/theme.conf
+    block: |
+      [Theme]
+      Current={{ setup_sddm_theme }}

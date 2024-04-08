@@ -37,31 +37,39 @@ pcieinfo:
 
 networkinfo:
   primary:
-    - mac: CA:13:80:09:EA:7B
-      bridge: vmbr0
-      firewall: 1
-      tag: 70
     - mac: CA:13:80:09:EA:7C
       bridge: vmbr0
-      firewall: 1
+      firewall: 0
       tag: 10
+    - mac: CA:13:80:09:EA:7B
+      bridge: vmbr0
+      firewall: 0
+      tag: 70
+    - mac: CA:13:80:09:EA:7A
+      bridge: vmbr0
+      firewall: 0
+      tag: 400
     - mac: CA:13:80:09:EA:7D
       bridge: vmbr0
-      firewall: 1
+      firewall: 0
       tag: null
 
   secondary:
-    - mac: 62:03:E8:5C:92:35
-      bridge: vmbr0
-      firewall: 1
-      tag: 70
     - mac: 62:03:E8:5C:92:36
       bridge: vmbr0
-      firewall: 1
+      firewall: 0
       tag: 10
+    - mac: 62:03:E8:5C:92:35
+      bridge: vmbr0
+      firewall: 0
+      tag: 70
+    - mac: 62:03:E8:5C:92:38
+      bridge: vmbr0
+      firewall: 0
+      tag: 400
     - mac: 62:03:E8:5C:92:37
       bridge: vmbr0
-      firewall: 1
+      firewall: 0
       tag: null
 
 cpuinfo:
@@ -69,7 +77,7 @@ cpuinfo:
   secondary: 32
 
 memoryinfo:
-  primary: 13000
+  primary: 17000
   secondary: 15000
 
 audioinfo:

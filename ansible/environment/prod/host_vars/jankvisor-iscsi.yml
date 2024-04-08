@@ -1,0 +1,24 @@
+iscsi_targets:
+  - wwn: 'iqn.1994-05.com.redhat:linux'
+    disks:
+      - path: '/dev/disk/by-uuid/492c76fe-b6e7-40e4-a021-2c000b7bc764'
+        name: 'main_linux'
+        type: 'block'
+
+    initiators:
+      - 'iqn.2016-04.com.open-iscsi:linux-vm'
+
+  - wwn: 'iqn.1994-05.com.redhat:windows'
+    disks:
+      - path: '/dev/disk/by-uuid/ca608ddd-2795-4117-98f0-90250b0bd236'
+        name: 'main_windows'
+        type: 'block'
+
+    initiators:
+      - 'iqn.2016-04.com.open-iscsi:windows-vm'
+
+
+nmcli_interfaces:
+  - name: enp6s18
+    method: manual
+    ip: 10.0.1.45/24

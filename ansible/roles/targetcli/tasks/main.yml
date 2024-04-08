@@ -1,0 +1,59 @@
+- name: "Install package targetcli"
+  ansible.builtin.apt:
+    name:
+      - targetcli-fb
+      - python3-distutils
+    state: present
+
+- name: "Get system service for targetcli"
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/open-iscsi/rtslib-fb/master/systemd/target.service
+    dest: /etc/systemd/system/target.service
+    mode: "0644"
+    owner: root
+
+- name: "Start and enable the target service"
+  ansible.builtin.service:
+    name: "target"
+    enabled: true
+    state: 'started'
+
+
+- name: Define backstore objects
+  targetcli_backstore:
+    backstore_type: "{{ item.1.type }}"
+    backstore_name: "{{ item.1.name }}"
+    options: "{{ item.1.path }}"
+  with_subelements:
+    - "{{ iscsi_targets }}"
+    - disks
+  notify:
+    - Save targetcli configuration
+
+- name: Create iSCSI targets
+  targetcli_iscsi:
+    wwn: "{{ item.wwn }}"
+  with_items: "{{ iscsi_targets }}"
+  notify:
+    - Save targetcli configuration
+
+- name: Define ACLs for iSCSI target
+  targetcli_iscsi_acl:
+    wwn: "{{ item.0.wwn }}"
+    initiator_wwn: "{{ item.1 }}"
+  with_subelements:
+    - "{{ iscsi_targets }}"
+    - initiators
+  notify:
+    - Save targetcli configuration
+
+- name: Assing LUNs to initiators
+  targetcli_iscsi_lun:
+    wwn: "{{ item.0.wwn }}"
+    backstore_type: "{{ item.1.type }}"
+    backstore_name: "{{ item.1.name }}"
+  with_subelements:
+    - "{{ iscsi_targets }}"
+    - disks
+  notify:
+    - Save targetcli configuration

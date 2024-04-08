@@ -1,0 +1,35 @@
+---
+
+- name: Remove inferior service
+  ansible.builtin.lineinfile:
+    path: /etc/network/interfaces
+    regexp: "{{ item }}"
+    state: absent
+  loop:
+    - "^allow-hotplug {{ nmcli_interface.ifname }}"
+    - "^auto {{ nmcli_interface.ifname }}.*"
+    - "^iface {{ nmcli_interface.ifname }}.*"
+
+- name: Setup ips
+  community.general.nmcli:
+    conn_name: "{{ nmcli_interface.conn_name }}"
+    ifname: "{{ nmcli_interface.ifname }}"
+    type: ethernet
+    method4: "{{ nmcli_interface.get('method', omit) }}"
+    ip4: "{{ nmcli_interface.get('ip', omit) }}"
+    gw4: "{{ nmcli_interface.get('gateway', omit) }}"
+    dns4: "{{ nmcli_interface.get('dns', omit) }}"
+    state: present
+  become: true
+
+- name: Setup netbox ip addresses
+  netbox.netbox.netbox_ip_address:
+    netbox_url: "{{ netbox_url }}"
+    netbox_token: "{{ netbox_token }}"
+    data:
+      address: "{{ nmcli_interface.ip }}"
+      description: "vm: {{ inventory_hostname }} interface: {{ nmcli_interface.ifname }} nmcli managed"
+    validate_certs: false
+    state: present
+  when: nmcli_interface.ip
+  delegate_to: localhost

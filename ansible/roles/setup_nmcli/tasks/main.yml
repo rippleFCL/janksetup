@@ -1,0 +1,13 @@
+---
+- name: Start network manager service
+  ansible.builtin.systemd:
+    name: NetworkManager
+    state: "started"
+    enabled: true
+
+- name: Configure nmcli interfaces
+  ansible.builtin.include_tasks:
+    file: configure_interface.yml
+  loop: "{{ setup_nmcli_interfaces }}"
+  loop_control:
+    loop_var: "nmcli_interface"

@@ -34,7 +34,7 @@ bootctl --path=/boot install
 {
     echo 'title Arch Linux fallback'
     echo 'linux /vmlinuz-linux'
-    echo 'initrd /initramfs-linux-fallback.img.img'
+    echo 'initrd /initramfs-linux-fallback.img'
     echo 'options root="LABEL=root" rw'
 } > /boot/loader/entries/arch-fallback.conf
 
@@ -53,6 +53,6 @@ systemctl enable qemu-guest-agent
 
 systemctl enable NetworkManager
 
-systemctl enable dhcpcd@enp6s18.service
+systemctl disable dhcpcd@enp6s18.service
 
 systemctl enable sshd.service

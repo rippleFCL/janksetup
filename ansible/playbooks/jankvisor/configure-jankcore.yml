@@ -1,9 +1,9 @@
 - name: "Configure jankvisors"
   hosts: jankvisor
   tasks:
-    - name: "Configer the pcie devices"
+    - name: Configer the pcie devices
       ansible.builtin.include_role:
-        name: "configure_pcie_devices"
+        name: configure_pcie_devices
 
     - name: Install sound server
       ansible.builtin.include_role:

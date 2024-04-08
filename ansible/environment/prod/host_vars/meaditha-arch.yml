@@ -1,0 +1,20 @@
+hostname: meaditha-debtest
+
+nmcli_interfaces:
+  - name: enp6s18
+    method: manual
+    ip: 10.0.1.190/24
+  - name: enp6s19
+    method: auto
+  - name: enp6s20
+    method: manual
+    ip: 10.2.1.2/24
+  - name: enp6s21
+    method: auto
+
+wanix_extra_customizations:
+  - graphical_common
+  - graphical_sound
+  - graphical_social
+  - graphical_dev
+  - nvidia_drivers

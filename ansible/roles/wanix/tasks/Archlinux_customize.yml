@@ -1,15 +1,4 @@
 ---
-- name: Run roles for {{ customization.name }}
-  ansible.builtin.include_role:
-    apply:
-      tags: wanix_roles
-    name: "{{ role }}"
-  when: customization.roles is defined
-  loop: "{{ customization.roles }}"
-  loop_control:
-    loop_var: "role"
-  tags: wanix_roles
-
 - name: Install pip Packages for {{ customization.name }}
   become_user: ripple
   become: true
@@ -24,8 +13,18 @@
   become: true
   kewlfft.aur.aur:
     use: yay
-    update_cache: true
     name: "{{ customization.packages }}"
     state: present
   when: customization.packages is defined and customization.packages
   tags: wanix_apt
+
+- name: Run roles for {{ customization.name }}
+  ansible.builtin.include_role:
+    apply:
+      tags: wanix_roles
+    name: "{{ role }}"
+  when: customization.roles is defined
+  loop: "{{ customization.roles }}"
+  loop_control:
+    loop_var: "role"
+  tags: wanix_roles

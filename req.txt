@@ -1,3 +1,5 @@
 ansible
 ansible-lint
 ansible-cached-lookup
+netaddr
+pynetbox

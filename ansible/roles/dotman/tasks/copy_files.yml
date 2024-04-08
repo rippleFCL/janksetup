@@ -1,0 +1,43 @@
+- name: Create directory structure
+  ansible.builtin.file:
+    path: "{{ file.dest }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ dotman_files | filter_types('directory')  }}"
+  loop_control:
+    loop_var: file
+
+- name: Template a dotfile
+  ansible.builtin.template:
+    src: "{{ file.src }}"
+    dest: "{{ file.dest }}"
+    owner: "{{ file.user }}"
+    group: "{{ file.group }}"
+    mode: "{{ file.mode }}"
+  loop: "{{ dotman_files | filter_types('template') }}"
+  loop_control:
+    loop_var: file
+
+- name: Copy a dotfile
+  ansible.builtin.copy:
+    src: "{{ file.src }}"
+    dest: "{{ file.dest }}"
+    owner: "{{ file.user }}"
+    group: "{{ file.group }}"
+    mode: "{{ file.mode }}"
+  loop: "{{ dotman_files | filter_types('file') }}"
+  loop_control:
+    loop_var: file
+
+- name: Create a symbolic link to dotfile
+  ansible.builtin.file:
+    src: "{{ file.link }}"
+    dest: "{{ file.dest }}"
+    owner: "{{ file.user }}"
+    group: "{{ file.group }}"
+    state: link
+  loop: "{{ dotman_files | filter_types('link') }}"
+  loop_control:
+    loop_var: file
+  when: file.type == 'link'
+

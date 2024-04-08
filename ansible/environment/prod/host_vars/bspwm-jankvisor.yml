@@ -4,7 +4,7 @@ guest_username: ripple
 master_ip: "10.0.5.11"
 bsm_install_path: /tmp/bsm
 
-interfaces:
+nmcli_interfaces:
   enp6s18:
     ip: "{{ master_ip }}/24"
     gateway: "10.0.5.1"

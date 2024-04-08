@@ -1,6 +1,6 @@
 hostname: meaditha-debtest
 
-setup_networking_interfaces:
+nmcli_interfaces:
   - name: enp9s0
     method: auto
 
