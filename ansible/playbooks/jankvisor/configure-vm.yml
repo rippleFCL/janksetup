@@ -1,6 +1,5 @@
 ---
 - name: Clone vms
-  ignore_errors: true
   hosts: wanix_machines
   gather_facts: false
   tasks:
@@ -32,9 +31,7 @@
       ansible.builtin.pause:
         seconds: 15
 
-- name: Clone vms
-  ignore_errors: true
-  ignore_unreachable: true
+- name: Provision vms
   hosts: wanix_machines
   gather_facts: false
   become: true
@@ -180,12 +177,11 @@
         upgrade: true
 
 
-- name: Clone vms
-  ignore_errors: true
+- name: Start post prevision vms
   hosts: wanix_machines
   gather_facts: false
   tasks:
-    - name: "Stop vm"
+    - name: "Start vm"
       community.general.proxmox_kvm:
         api_user: "{{ proxmox_username }}"
         api_password: "{{ proxmox_password }}"
@@ -196,6 +192,6 @@
       delegate_to: localhost
       when: vm_start_after_provision is defined and vm_start_after_provision
 
-    - name: "Wait for vm to stop"
+    - name: "Wait for vm to start"
       ansible.builtin.pause:
         seconds: 15
