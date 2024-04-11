@@ -32,25 +32,6 @@
       ansible.builtin.pause:
         seconds: 15
 
-- name: Stop iscsi vms
-  ignore_errors: true
-  hosts: iscsi_hosts
-  gather_facts: false
-  tasks:
-    - name: "Stop vm"
-      community.general.proxmox_kvm:
-        api_user: "{{ proxmox_username }}"
-        api_password: "{{ proxmox_password }}"
-        api_host: "{{ proxmox_url }}"
-        node: pve-workstation
-        vmid: "{{ vm_id }}"
-        state: stopped
-      delegate_to: localhost
-
-    - name: "Wait for vm to stop"
-      ansible.builtin.pause:
-        seconds: 15
-
 - name: Clone vms
   ignore_errors: true
   ignore_unreachable: true
@@ -198,25 +179,6 @@
         update_cache: true
         upgrade: true
 
-
-- name: Start iscsi vms
-  ignore_errors: true
-  hosts: iscsi_hosts
-  gather_facts: false
-  tasks:
-    - name: "Stop vm"
-      community.general.proxmox_kvm:
-        api_user: "{{ proxmox_username }}"
-        api_password: "{{ proxmox_password }}"
-        api_host: "{{ proxmox_url }}"
-        node: pve-workstation
-        vmid: "{{ vm_id }}"
-        state: started
-      delegate_to: localhost
-
-    - name: "Wait for vm to stop"
-      ansible.builtin.pause:
-        seconds: 15
 
 - name: Clone vms
   ignore_errors: true
