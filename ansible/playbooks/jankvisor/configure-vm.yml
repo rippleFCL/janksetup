@@ -12,7 +12,6 @@
         clone: arch-template
         name: "{{ inventory_hostname }}"
         newid: "{{ vm_id }}"
-
         node: pve-workstation
         full: false
         format: unspecified
@@ -54,6 +53,7 @@
 
 - name: Clone vms
   ignore_errors: true
+  ignore_unreachable: true
   hosts: wanix_machines
   gather_facts: false
   become: true
@@ -83,7 +83,7 @@
         cores: "{{ cpuinfo }}"
         net: "{{ networkinfo }}"
         memory: "{{ memoryinfo }}"
-        hostpci: "{{ pcieinfo }}"
+        # hostpci: "{{ pcieinfo }}"
       delegate_to: localhost
 
     - name: "Start vm"

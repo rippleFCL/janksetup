@@ -1,5 +1,5 @@
 hostname: meaditha-debtest
-
+vm_id: 160
 vm_autostart: true
 vm_start_after_provision: true
 
