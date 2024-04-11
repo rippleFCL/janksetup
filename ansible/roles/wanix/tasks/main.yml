@@ -6,8 +6,7 @@
 
 - name: Include distro specific customizations
   ansible.builtin.include_tasks:
-    apply:
-      tags: wanix_roles
+
     file: "{{ ansible_facts['os_family'] }}_customize.yml"
   when: customization.name in wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations
   loop: "{{ wanix_customizations | customizations_flattener(ansible_facts['os_family']) }}"

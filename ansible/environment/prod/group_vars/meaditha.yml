@@ -4,7 +4,7 @@ wanix_include_customizations:
   - x_server
   - sound_server
   - meaditha
-  - configure_iscsi_disks
+  # - configure_iscsi_disks
 
 add_fonts_by_url:
   - name: meslo

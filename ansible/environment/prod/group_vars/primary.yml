@@ -1,0 +1,23 @@
+usbinfo:
+  usb0: "host=5-2.1"
+  usb1: "host=5-2.2"
+  usb2: "host=5-2.3"
+  usb3: "host=5-2.4"
+
+pcieinfo:
+  hostpci0: "host=0000:03:00,pcie=1"
+
+networkinfo:
+  net0: "virtio=CA:13:80:09:EA:7C,bridge=vmbr0,firewall=0,tag=10"
+  net1: "virtio=CA:13:80:09:EA:7B,bridge=vmbr0,firewall=0,tag=70"
+  net2: "virtio=CA:13:80:09:EA:7A,bridge=vmbr0,firewall=0,tag=400"
+  net3: "virtio=CA:13:80:09:EA:7D,bridge=vmbr0,firewall=0"
+
+audioinfo:
+  - type: duplex
+    input: alsa_input.usb-Focusrite_Scarlett_Solo_USB_Y7K6EZV2B73C1D-00.analog-stereo
+
+cpuinfo: 32
+memoryinfo: 17000
+
+vmargs: "{{ audioinfo | audio_vm_arg_gen }}"

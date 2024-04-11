@@ -6,6 +6,10 @@ ansible_ssh_user: ansible
 netbox_url: https://10.0.1.60
 netbox_token: "{{ lookup('bws_cache', 'netbox_token').value }}"
 
+proxmox_url: "10.0.1.30"
+proxmox_username: root@pam
+proxmox_password: "{{ lookup('bws_cache', 'proxmox-ansible-password').value }}"
+
 domain: home.lan
 
 docker_users:

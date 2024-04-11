@@ -123,3 +123,6 @@ setup_uwusers_definitions:
     password: "{{ lookup('bws_cache', 'ansible_user_hashed_password').value }}"
     ssh_keys: ["{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"]
     shell: /bin/bash
+
+
+vm_startup_order: order=2

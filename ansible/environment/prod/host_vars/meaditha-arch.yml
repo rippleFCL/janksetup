@@ -1,5 +1,8 @@
 hostname: meaditha-debtest
 
+vm_autostart: true
+vm_start_after_provision: true
+
 nmcli_interfaces:
   - name: enp6s18
     method: manual

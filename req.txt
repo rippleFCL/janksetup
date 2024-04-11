@@ -3,3 +3,4 @@ ansible-lint
 ansible-cached-lookup
 netaddr
 pynetbox
+proxmoxer

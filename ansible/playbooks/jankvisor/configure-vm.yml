@@ -1,9 +1,239 @@
-- name: "Configure hypervisor"
-  hosts: jankvisor
-  vars_prompt:
-
+---
+- name: Clone vms
+  ignore_errors: true
+  hosts: wanix_machines
+  gather_facts: false
   tasks:
+    - name: "Clone vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        clone: arch-template
+        name: "{{ inventory_hostname }}"
+        newid: "{{ vm_id }}"
+
+        node: pve-workstation
+        full: false
+        format: unspecified
+        timeout: 500
+      delegate_to: localhost
+
+    - name: "Stop vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: stopped
+      delegate_to: localhost
+
+    - name: "Wait for vm to stop"
+      ansible.builtin.pause:
+        seconds: 15
+
+- name: Stop iscsi vms
+  ignore_errors: true
+  hosts: iscsi_hosts
+  gather_facts: false
+  tasks:
+    - name: "Stop vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: stopped
+      delegate_to: localhost
+
+    - name: "Wait for vm to stop"
+      ansible.builtin.pause:
+        seconds: 15
+
+- name: Clone vms
+  ignore_errors: true
+  hosts: wanix_machines
+  gather_facts: false
+  become: true
+  serial: 1
+  tasks:
+    - name: "Unconfigure vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        delete: "args,{{ networkinfo.keys() | join(',') }},{{ pcieinfo.keys() | join(',') }},{{ usbinfo.keys() | join(',') }}"
+      notify: Update system
+      delegate_to: localhost
+
+    - name: "Configure vm previson enviroment"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        update: true
+        update_unsafe: true
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        cpu: host
+        cores: "{{ cpuinfo }}"
+        net: "{{ networkinfo }}"
+        memory: "{{ memoryinfo }}"
+        hostpci: "{{ pcieinfo }}"
+      delegate_to: localhost
+
+    - name: "Start vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: started
+      retries: 3
+      delay: 3
+      register: result
+      until: result is not failed
+      delegate_to: localhost
+
+    - name: "Wait for vm to comeup"
+      ansible.builtin.pause:
+        seconds: 45
+
+    - name: "Rescan inventory"
+      ansible.builtin.meta: refresh_inventory
+
+    - name: "Gather facts"
+      ansible.builtin.setup:
+
+    - name: Wait for vm ssh server to start
+      ansible.builtin.wait_for:
+        host: "{{ ansible_host }}"
+        port: 22
+        delay: 1
+        timeout: 300
+      delegate_to: localhost
+
+    - name: "Updated ansible host"
+      ansible.builtin.debug:
+        var: "ansible_host"
+
+    - name: "Update system if just cloned"
+      ansible.builtin.meta: flush_handlers
+
+    - name: Build machine with wanix
+      ansible.builtin.include_role:
+        name: wanix
+
+    - name: "Stop vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: stopped
+      delegate_to: localhost
+
+    - name: "Wait for vm to stop"
+      ansible.builtin.pause:
+        seconds: 15
+
+    - name: "Start vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: started
+      delegate_to: localhost
+
+    - name: "Wait for vm to comeup"
+      ansible.builtin.pause:
+        seconds: 45
+
+    - name: "Stop vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: stopped
+      delegate_to: localhost
+
+    - name: "Wait for vm to stop"
+      ansible.builtin.pause:
+        seconds: 15
+
     - name: "Configure vm"
-    # - name: "Configer the bspwm vm"
-    #   ansible.builtin.include_role:
-    #     name: configure_vm_config
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        update: true
+        update_unsafe: true
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        cpu: host
+        cores: "{{ cpuinfo }}"
+        memory: "{{ memoryinfo }}"
+        args: "{{ vmargs }}"
+        net: "{{ networkinfo }}"
+        hostpci: "{{ pcieinfo }}"
+        usb: "{{ usbinfo }}"
+        autostart: "{{ vm_autostart | default(omit) }}"
+        startup: "{{ vm_startup_order }}"
+      delegate_to: localhost
+
+  handlers:
+    - name: "Update system"
+      become: true
+      community.general.pacman:
+        update_cache: true
+        upgrade: true
+
+
+- name: Start iscsi vms
+  ignore_errors: true
+  hosts: iscsi_hosts
+  gather_facts: false
+  tasks:
+    - name: "Stop vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: started
+      delegate_to: localhost
+
+    - name: "Wait for vm to stop"
+      ansible.builtin.pause:
+        seconds: 15
+
+- name: Clone vms
+  ignore_errors: true
+  hosts: wanix_machines
+  gather_facts: false
+  tasks:
+    - name: "Stop vm"
+      community.general.proxmox_kvm:
+        api_user: "{{ proxmox_username }}"
+        api_password: "{{ proxmox_password }}"
+        api_host: "{{ proxmox_url }}"
+        node: pve-workstation
+        vmid: "{{ vm_id }}"
+        state: started
+      delegate_to: localhost
+      when: vm_start_after_provision is defined and vm_start_after_provision
+
+    - name: "Wait for vm to stop"
+      ansible.builtin.pause:
+        seconds: 15

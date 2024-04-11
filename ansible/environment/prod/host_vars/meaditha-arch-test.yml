@@ -1,5 +1,4 @@
-hostname: meaditha-arch-test
-
+vm_id: 150
 
 setup_nmcli_interfaces:
   - conn_name: "mgmt network"
