@@ -8,3 +8,7 @@
     - name: Install sound server
       ansible.builtin.include_role:
         name: install_pipewire_audio
+
+    - name: Install docker
+      ansible.builtin.include_role:
+        name: geerlingguy.docker
