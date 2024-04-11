@@ -2,7 +2,7 @@ collections:
   - name: kewlfft.aur
   - name: community.general
     src: https://github.com/rippleFCL/community.general
-    version: "feat/prox-usb"
+    version: "bcb1056"
 
 roles:
   - name: geerlingguy.docker
