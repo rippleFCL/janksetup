@@ -1,7 +1,6 @@
 collections:
   - name: kewlfft.aur
-  - name: community.general
-    src: https://github.com/rippleFCL/community.general
+  - src: https://github.com/rippleFCL/community.general.git
     version: "bcb1056"
 
 roles:
