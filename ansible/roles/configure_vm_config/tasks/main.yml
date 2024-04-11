@@ -1,7 +1,0 @@
----
-- name: "Remove vga display from vm"
-  ansible.builtin.lineinfile:
-    dest: "/etc/pve/qemu-server/{{ vm_id }}.conf"
-    state: present
-    line: "vga: none"
-    regexp: "^vga"

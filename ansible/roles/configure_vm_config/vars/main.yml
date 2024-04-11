@@ -1,4 +1,0 @@
-audio_types:
-  duplex: "hda-duplex"
-  input: "hda-input"
-  output: "hda-output"
