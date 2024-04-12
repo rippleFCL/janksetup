@@ -1,5 +1,9 @@
-- name: "Configure jankvisors"
+- name: "Configure jankvisors base configuration"
   hosts: jankvisor
+  vars_prompt:
+    - name: org_id
+      prompt: What is your org id?
+      private: false
   tasks:
     - name: Install docker
       ansible.builtin.include_role:
@@ -8,3 +12,15 @@
     - name: Configer the pcie devices
       ansible.builtin.include_role:
         name: configure_pcie_devices
+
+    - name: Run bws-cache
+      ansible.builtin.include_role:
+        name: bws_cache
+
+    - name: Run bws-cache
+      ansible.builtin.include_role:
+        name: setup_jankvisor_audio_server
+
+    - name: Setup private ssh keys
+      ansible.builtin.include_role:
+        name: setup_private_ssh_keys
