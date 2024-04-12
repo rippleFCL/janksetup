@@ -18,7 +18,7 @@
   ansible.builtin.systemd_service:
     name: pulseaudio
     state: started
-    scope: user
+    scope: vmaudio
     masked: false
 
 - name: Setup pulseaudio socket
