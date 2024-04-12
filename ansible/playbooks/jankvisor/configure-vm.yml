@@ -61,7 +61,7 @@
         cores: "{{ cpuinfo }}"
         net: "{{ networkinfo }}"
         memory: "{{ memoryinfo }}"
-        # hostpci: "{{ pcieinfo }}"
+        hostpci: "{{ pcieinfo }}"
       delegate_to: localhost
 
     - name: "Start vm"
