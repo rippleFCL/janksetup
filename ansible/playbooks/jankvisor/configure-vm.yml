@@ -85,9 +85,6 @@
     - name: "Rescan inventory"
       ansible.builtin.meta: refresh_inventory
 
-    - name: "Gather facts"
-      ansible.builtin.setup:
-
     - name: Wait for vm ssh server to start
       ansible.builtin.wait_for:
         host: "{{ ansible_host }}"
@@ -99,6 +96,10 @@
     - name: "Updated ansible host"
       ansible.builtin.debug:
         var: "ansible_host"
+
+    - name: "Gather facts"
+      ansible.builtin.setup:
+
 
     - name: "Update system if just cloned"
       ansible.builtin.meta: flush_handlers
