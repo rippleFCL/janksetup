@@ -19,6 +19,7 @@
     name: pulseaudio
     state: started
     scope: user
+    masked: false
 
 - name: Setup pulseaudio socket
   ansible.builtin.lineinfile:
