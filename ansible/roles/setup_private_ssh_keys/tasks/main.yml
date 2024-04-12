@@ -1,8 +1,8 @@
 ---
 - name: Copy keys for users
+  no_log: true
   ansible.builtin.include_tasks:
     file: copy_keys.yml
   loop: "{{ setup_private_ssh_keys_data }}"
   loop_control:
-    loop_var: user
-    lable: "{{ user.username }}"
+    loop_var: "user"
