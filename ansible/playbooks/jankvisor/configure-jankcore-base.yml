@@ -1,0 +1,10 @@
+- name: "Configure jankvisors"
+  hosts: jankvisor
+  tasks:
+    - name: Install docker
+      ansible.builtin.include_role:
+        name: geerlingguy.docker
+
+    - name: Configer the pcie devices
+      ansible.builtin.include_role:
+        name: configure_pcie_devices
