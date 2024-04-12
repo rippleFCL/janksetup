@@ -2,7 +2,7 @@
   become: true
   ansible.builtin.get_url:
     url: "https://apt.releases.hashicorp.com/gpg"
-    dest: "/etc/apt/trusted.gpg.d/hasicorp.gpg"
+    dest: "/etc/apt/trusted.gpg.d/hasicorp.asc"
     mode: "0644"
     force: true
   register: add_apt_key
