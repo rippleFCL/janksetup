@@ -15,3 +15,13 @@ linux_cmdline_args:
   - pcie_acs_override=downstream,multifunction
 
 ansible_connection: local
+
+setup_jankvisor_audio_server_user: vmaudio
+
+setup_uwusers_definitions:
+  - username: vmaudio
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ripple_user_hashed_password').value }}"
+    ssh_keys: ["{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"]
+    shell: /bin/bash
+

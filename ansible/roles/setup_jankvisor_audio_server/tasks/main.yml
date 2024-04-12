@@ -1,2 +1,36 @@
 ---
+- name: Check if user is lingering
+  ansible.builtin.stat:
+    path: "/var/lib/systemd/linger/{{ setup_jankvisor_audio_server_user }}"
+  register: user_lingering
+
+- name: Enable lingering if needed
+  ansible.builtin.command: "loginctl enable-linger {{ setup_jankvisor_audio_server_user }}"
+  when: not user_lingering.stat.exists
+  changed_when: not user_lingering.stat.exists
+
+- name: Install pulseaudio
+  ansible.builtin.apt:
+    name: pulseaudio
+    state: present
+
+- name: Start pulseaudio
+  ansible.builtin.systemd_service:
+    name: pulseaudio
+    state: started
+    scope: user
+
+- name: Setup pulseaudio socket
+  ansible.builtin.lineinfile:
+    dest: "/etc/pulse/default.pa"
+    state: present
+    line: "load-module module-native-protocol-unix auth-anonymous=1 socket=/tmp/pulse-socket"
+    regexp: "^load-module module-native-protocol-unix"
+
+- name: Setup pulseaudio dissable idle time
+  ansible.builtin.lineinfile:
+    dest: "/etc/pulse/daemon.conf"
+    state: present
+    line: "exit-idle-time = -1"
+    regexp: "^exit-idle-time = -1"
 

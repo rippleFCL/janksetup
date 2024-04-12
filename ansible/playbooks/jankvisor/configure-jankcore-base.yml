@@ -17,7 +17,11 @@
       ansible.builtin.include_role:
         name: bws_cache
 
-    - name: Run bws-cache
+    - name: Setup uwusers
+      ansible.builtin.include_role:
+        name: setup uwusers
+
+    - name: Setup jankvisor audio server
       ansible.builtin.include_role:
         name: setup_jankvisor_audio_server
 

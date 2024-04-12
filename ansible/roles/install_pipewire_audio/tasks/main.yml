@@ -1,14 +1,4 @@
 ---
-- name: Check if user is lingering
-  ansible.builtin.stat:
-    path: "/var/lib/systemd/linger/ripple"
-  register: user_lingering
-
-- name: Enable lingering is needed
-  ansible.builtin.command: "loginctl enable-linger ripple"
-  when: not user_lingering.stat.exists
-  changed_when: not user_lingering.stat.exists
-
 - name: Install packages
   kewlfft.aur.aur:
     use: yay
