@@ -16,7 +16,7 @@
     filename: "hashicorp"
     repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hasicorp.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
 
-- name: Install terraform and packer
+- name: Install packer
   ansible.builtin.apt:
     update_cache: true
     name: packer
