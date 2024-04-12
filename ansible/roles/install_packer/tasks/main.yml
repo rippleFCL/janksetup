@@ -6,7 +6,6 @@
     mode: "0644"
     force: true
   register: add_apt_key
-  when: source.key_url is defined
   until: add_apt_key is succeeded
   retries: 2
   delay: 2
