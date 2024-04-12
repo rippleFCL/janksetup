@@ -12,5 +12,5 @@ keyed_groups:
   - key: proxmox_tags_parsed | default("all")
     separator: ""
 compose:
-  ansible_host: proxmox_agent_interfaces | map(attribute="ip-addresses") | flatten | ansible.utils.reduce_on_network('10.0.1.0/24') | first | ansible.utils.ipaddr("address") | default(omit)
-strict: true
+  ansible_host: proxmox_agent_interfaces | default([]) | map(attribute="ip-addresses") | flatten | ansible.utils.reduce_on_network('10.0.1.0/24') | first | ansible.utils.ipaddr("address") | default(omit)
+strict: false
