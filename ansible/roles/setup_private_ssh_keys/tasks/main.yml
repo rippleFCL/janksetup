@@ -5,3 +5,4 @@
   loop: "{{ setup_private_ssh_keys_data }}"
   loop_control:
     loop_var: user
+    lable: "{{ user.username }}"
