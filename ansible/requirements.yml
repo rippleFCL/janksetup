@@ -1,7 +1,5 @@
 collections:
   - name: kewlfft.aur
-  - src: https://github.com/rippleFCL/community.general.git
-    version: "bcb1056"
 
 roles:
   - name: geerlingguy.docker
