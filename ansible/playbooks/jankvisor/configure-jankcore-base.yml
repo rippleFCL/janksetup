@@ -19,7 +19,7 @@
 
     - name: Setup uwusers
       ansible.builtin.include_role:
-        name: setup uwusers
+        name: setup_uwusers
 
     - name: Setup jankvisor audio server
       ansible.builtin.include_role:
