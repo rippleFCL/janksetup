@@ -4,8 +4,8 @@
     dest: "{{ user.directory }}/id_{{ item.key_type }}"
     content: "{{ item.content }}"
     mode: 600
-    owner: {{ user.username }}
-    group: {{ user.username }}
+    owner: "{{ user.username }}"
+    group: "{{ user.username }}"
   loop: "{{ user.private_keys }}"
 
 - name: "copy public keys to user directory"
@@ -13,6 +13,6 @@
     dest: "{{ user.directory }}/id_{{ item.key_type }}.pub"
     content: "{{ item.content }}"
     mode: 644
-    owner: {{ user.username }}
-    group: {{ user.username }}
+    owner: "{{ user.username }}"
+    group: "{{ user.username }}"
   loop: "{{ user.public_keys }}"
