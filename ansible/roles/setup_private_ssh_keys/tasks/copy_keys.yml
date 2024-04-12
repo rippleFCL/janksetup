@@ -2,7 +2,7 @@
 - name: "copy private keys to user directory"
   ansible.builtin.copy:
     dest: "{{ user.directory }}/id_{{ item.key_type }}"
-    content: "{{ item.content }}"
+    content: "{{ item.content }}\n"
     mode: 600
     owner: "{{ user.username }}"
     group: "{{ user.username }}"
@@ -11,7 +11,7 @@
 - name: "copy public keys to user directory"
   ansible.builtin.copy:
     dest: "{{ user.directory }}/id_{{ item.key_type }}.pub"
-    content: "{{ item.content }}"
+    content: "{{ item.content }}\n"
     mode: 644
     owner: "{{ user.username }}"
     group: "{{ user.username }}"
