@@ -124,5 +124,15 @@ setup_uwusers_definitions:
     ssh_keys: ["{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"]
     shell: /bin/bash
 
+setup_private_keys_data:
+  - username: ripple
+    directory: "/home/ripple/.ssh"
+    private_keys:
+      - content: "{{ lookup('bws_cache', 'ripple_sshkey_private').value }}"
+        key_type: "ed25519"
+    public_keys:
+      - content: "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+        key_type: "ed25519"
+
 
 vm_startup_order: order=2

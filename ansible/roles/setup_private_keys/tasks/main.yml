@@ -1,0 +1,7 @@
+---
+- name: Copy keys for users
+  ansible.builtin.include_role:
+    name: copy_keys.yml
+  loop: "{{ setup_private_keys_data }}"
+  loop_control:
+    loop_var: user
