@@ -25,3 +25,6 @@
       ansible.builtin.include_role:
         name: setup_private_ssh_keys
 
+    - name: Install packer
+      ansible.builtin.include_role:
+        name: install_packer

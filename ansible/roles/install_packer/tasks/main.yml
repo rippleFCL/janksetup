@@ -1,0 +1,24 @@
+- name: Add GPG Key for hasicorp
+  become: true
+  ansible.builtin.get_url:
+    url: "https://apt.releases.hashicorp.com/gpg"
+    dest: "/etc/apt/trusted.gpg.d/hasicorp.gpg"
+    mode: "0644"
+    force: true
+  register: add_apt_key
+  when: source.key_url is defined
+  until: add_apt_key is succeeded
+  retries: 2
+  delay: 2
+
+- name: Add repo for hashicorp
+  become: true
+  ansible.builtin.apt_repository:
+    filename: "hashicorp"
+    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hasicorp.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_version }} main"
+
+- name: Install terraform and packer
+  ansible.builtin.apt:
+    update_cache: true
+    name: packer
+    state: present
