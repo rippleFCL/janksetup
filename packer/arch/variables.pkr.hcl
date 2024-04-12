@@ -74,6 +74,10 @@ variable "vm_ip_addr" {
     type = string
 }
 
+variable "http_interface" {
+    type = string
+}
+
 variable "ansible_inventory_dir" {
 	type    = string
 }

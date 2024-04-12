@@ -49,6 +49,7 @@ source "proxmox-iso" "arch-deployment" {
   }
 
   http_content             = local.enable_ssh
+  http_interface = var.http_interface
   insecure_skip_tls_verify = true
 
   iso_storage_pool = var.iso_storage_pool

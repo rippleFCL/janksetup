@@ -4,6 +4,8 @@ iso_checksum_type = "sha256"
 guest_username    = "ripple"
 ansible_username  = "ansible"
 
+http_interface = "vmbr0.10@vmbr0"
+
 proxmox_url       = "10.0.1.30:8006"
 proxmox_node      = "pve-workstation"
 disk_pool         = "local-lvm"
