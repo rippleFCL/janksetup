@@ -1,0 +1,11 @@
+- name: "Configure jankvisors"
+  hosts: jankvisor
+  vars_prompt:
+    - name: org_id
+      prompt: What is your org id?
+      private: false
+  tasks:
+    - name: Run bws-cache
+      ansible.builtin.include_role:
+        name: bws_cache
+

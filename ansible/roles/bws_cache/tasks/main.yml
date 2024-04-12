@@ -1,0 +1,13 @@
+---
+- name: Run bws cache
+  community.docker.docker_container:
+    name: bws-cache
+    image: ghcr.io/ripplefcl/bws-cache
+    state: started
+    restart_policy: "unless-stopped"
+    ports:
+      - "5000:5000"
+    env:
+      SECRET_TTL: "3600"
+      DEBUG: "True"
+      ORG_ID: "{{ org_id }}"
