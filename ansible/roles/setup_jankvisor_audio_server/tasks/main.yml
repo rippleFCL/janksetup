@@ -23,6 +23,8 @@
     state: started
     scope: user
     masked: false
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/1000"
 
 - name: Setup pulseaudio socket
   ansible.builtin.lineinfile:
