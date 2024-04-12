@@ -1,0 +1,9 @@
+- name: Check if user is lingering
+  ansible.builtin.stat:
+    path: "/var/lib/systemd/linger/{{ item.username }}"
+  register: user_lingering
+
+- name: Enable lingering if needed
+  ansible.builtin.command: "loginctl enable-linger {{ item.username }}"
+  when: not user_lingering.stat.exists and "linger" in item and item.linger
+  changed_when: not user_lingering.stat.exists

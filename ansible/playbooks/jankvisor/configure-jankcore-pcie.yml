@@ -1,0 +1,7 @@
+- name: "Configure jankvisors pcie` configuration"
+  hosts: jankvisor
+  tasks:
+
+    - name: Configer the pcie devices
+      ansible.builtin.include_role:
+        name: configure_pcie_devices

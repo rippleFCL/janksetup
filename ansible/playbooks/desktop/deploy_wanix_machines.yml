@@ -1,8 +1,0 @@
----
-- name: "Configure meaditha-arch-test"
-  hosts: meaditha-arch-test
-  become: true
-  tasks:
-    - name: Build machine with wanix
-      ansible.builtin.include_role:
-        name: wanix

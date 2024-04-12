@@ -28,3 +28,11 @@
   loop_control:
     loop_var: "userdata"
     label: "{{ userdata.username }}"
+
+- name: Set ripple users autherised ssh key
+  ansible.builtin.include_tasks:
+    file: setup_linger.yml
+  loop: "{{ setup_uwusers_definitions }}"
+  loop_control:
+    loop_var: "userdata"
+    label: "{{ userdata.username }}"

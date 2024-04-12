@@ -9,10 +9,6 @@
       ansible.builtin.include_role:
         name: geerlingguy.docker
 
-    - name: Configer the pcie devices
-      ansible.builtin.include_role:
-        name: configure_pcie_devices
-
     - name: Run bws-cache
       ansible.builtin.include_role:
         name: bws_cache
@@ -28,3 +24,4 @@
     - name: Setup private ssh keys
       ansible.builtin.include_role:
         name: setup_private_ssh_keys
+
