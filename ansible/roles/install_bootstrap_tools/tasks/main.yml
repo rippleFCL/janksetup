@@ -1,12 +1,4 @@
 ---
-- name: Install base packages
-  community.general.pacman:
-    name:
-      - git
-      - linux-headers
-      - python-pip
-    state: present
-
 - name: Ensure github.com is a known host
   become: true
   ansible.builtin.lineinfile:

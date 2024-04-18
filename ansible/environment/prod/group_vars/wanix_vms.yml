@@ -1,0 +1,34 @@
+wanix_default_customizations:
+  - post_vm_clone
+  - setup_uwusers
+  - nmcli_networking
+  - setup_base_environment
+
+setup_uwusers_definitions:
+  - username: ripple
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ripple_user_hashed_password').value }}"
+    ssh_keys:
+      - "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+      - "{{ lookup('bws_cache', 'jankvisor_sshkey_public').value }}"
+    shell: /bin/zsh
+  - username: ansible
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ansible_user_hashed_password').value }}"
+    ssh_keys:
+      - "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+      - "{{ lookup('bws_cache', 'jankvisor_sshkey_public').value }}"
+    shell: /bin/bash
+
+setup_private_ssh_keys_data:
+  - username: ripple
+    directory: "/home/ripple/.ssh"
+    private_keys:
+      - content: "{{ lookup('bws_cache', 'ripple_sshkey_private').value }}"
+        key_type: "ed25519"
+    public_keys:
+      - content: "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+        key_type: "ed25519"
+
+
+vm_startup_order: order=2
