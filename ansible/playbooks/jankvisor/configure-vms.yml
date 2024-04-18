@@ -1,6 +1,6 @@
 ---
 - name: Clone vms
-  hosts: wanix_machines
+  hosts: wanix_vms
   gather_facts: false
   tasks:
     - name: "Clone vm"
