@@ -18,7 +18,7 @@ iscsi_targets:
       - 'iqn.2016-04.com.open-iscsi:windows-vm'
 
 
-nmcli_interfaces:
-  - name: enp6s18
+setup_nmcli_interfaces:
+  - conn_name: enp6s18
     method: manual
     ip: 10.0.1.45/24

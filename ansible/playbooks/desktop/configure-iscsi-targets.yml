@@ -16,4 +16,4 @@
 
     - name: Setup networking
       ansible.builtin.include_role:
-        name: nmcli
+        name: setup_nmcli
