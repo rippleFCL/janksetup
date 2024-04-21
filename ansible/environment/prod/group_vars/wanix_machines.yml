@@ -83,7 +83,8 @@ wanix_customizations:
       - easyeffects
       - pavucontrol
       - spotify-launcher
-  - name: sound_server
+
+  - name: pipewire_sound_server
     roles:
       - name: install_pipewire_audio
         provides_pkgs:

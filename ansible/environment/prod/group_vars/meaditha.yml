@@ -2,7 +2,7 @@ wanix_include_customizations:
   - cli_base_tools
   - cli_dev_tools
   - x_server
-  - sound_server
+  - pipewire_sound_server
   - meaditha
   # - configure_iscsi_disks
 
