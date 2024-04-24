@@ -1,0 +1,16 @@
+---
+- name: Copy dotfiles
+  ansible.builtin.include_tasks:
+    file: copy_files.yml
+  vars:
+    wanix_dotman_files: >-
+      {{ lookup('community.general.filetree', item) |
+      file_copy_processor(
+        wanix_dotman_installed_packages,
+        wanix_dotman_installed_custiomizations,
+        wanix_dotman_file_destinations,
+        wanix_dotman_file_depmap,
+        '/home/ripple'
+      )
+      }}
+  loop: "{{ wanix_dotman_file_copys }}"

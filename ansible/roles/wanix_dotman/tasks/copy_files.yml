@@ -3,7 +3,7 @@
     path: "{{ file.dest }}"
     state: directory
     mode: '0755'
-  loop: "{{ dotman_files | filter_types('directory')  }}"
+  loop: "{{ wanix_dotman_files | filter_types('directory')  }}"
   loop_control:
     loop_var: file
 
@@ -14,7 +14,7 @@
     owner: "{{ file.user }}"
     group: "{{ file.group }}"
     mode: "{{ file.mode }}"
-  loop: "{{ dotman_files | filter_types('template') }}"
+  loop: "{{ wanix_dotman_files | filter_types('template') }}"
   loop_control:
     loop_var: file
 
@@ -25,7 +25,7 @@
     owner: "{{ file.user }}"
     group: "{{ file.group }}"
     mode: "{{ file.mode }}"
-  loop: "{{ dotman_files | filter_types('file') }}"
+  loop: "{{ wanix_dotman_files | filter_types('file') }}"
   loop_control:
     loop_var: file
 
@@ -36,7 +36,7 @@
     owner: "{{ file.user }}"
     group: "{{ file.group }}"
     state: link
-  loop: "{{ dotman_files | filter_types('link') }}"
+  loop: "{{ wanix_dotman_files | filter_types('link') }}"
   loop_control:
     loop_var: file
   when: file.type == 'link'

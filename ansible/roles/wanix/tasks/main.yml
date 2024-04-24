@@ -13,12 +13,12 @@
   loop_control:
     loop_var: customisation
 
-- name: Run dotfile manager dotman
+- name: Run dotfile manager wanix_dotman
   ansible.builtin.include_role:
-    name: dotman
+    name: wanix_dotman
   vars:
-    dotman_installed_packages: "{{ wanix_customisations | cd_package_extractor(wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations, ansible_facts['os_family']) }}"
-    dotman_installed_custiomizations: "{{ wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations }}"
-    dotman_file_destinations: "{{ wanix_file_destinations }}"
-    dotman_file_depmap: "{{ wanix_file_depmap }}"
-    dotman_file_copys: "{{ wanix_file_copys }}"
+    wanix_dotman_installed_packages: "{{ wanix_customisations | cd_package_extractor(wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations, ansible_facts['os_family']) }}"
+    wanix_dotman_installed_custiomizations: "{{ wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations }}"
+    wanix_dotman_file_destinations: "{{ wanix_file_destinations }}"
+    wanix_dotman_file_depmap: "{{ wanix_file_depmap }}"
+    wanix_dotman_file_copys: "{{ wanix_file_copys }}"

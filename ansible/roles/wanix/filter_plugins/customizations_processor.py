@@ -7,6 +7,10 @@ class FilterModule:
         "Debian": "deb_install",
         "Archlinux": "arch_install"
     }
+    DISTRO_DEFAULT_PACKAGE_MANAGER = {
+        "Debian": "apt",
+        "Archlinux": "yay"
+    }
 
     def filters(self):
         return {
