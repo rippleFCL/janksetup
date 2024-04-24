@@ -32,7 +32,7 @@
         seconds: 15
 
 - name: Provision vms
-  hosts: wanix_machines
+  hosts: wanix_vms
   gather_facts: false
   become: true
   serial: 1
@@ -179,7 +179,7 @@
 
 
 - name: Start post prevision vms
-  hosts: wanix_machines
+  hosts: wanix_vms
   gather_facts: false
   tasks:
     - name: "Start vm"

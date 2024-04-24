@@ -9,7 +9,7 @@
   loop_control:
     label: "{{ item.username }}"
 
-- name: 'Add ansible user to suderos'
+- name: 'Add user to suderos'
   community.general.sudoers:
     name: "{{ item.username }}-user"
     state: present
@@ -21,7 +21,7 @@
     label: "{{ item.username }}"
 
 
-- name: Set ripple users autherised ssh key
+- name: Set users autherised ssh key
   ansible.builtin.include_tasks:
     file: setup_ssh_keys.yml
   loop: "{{ setup_uwusers_definitions }}"
@@ -29,7 +29,7 @@
     loop_var: "userdata"
     label: "{{ userdata.username }}"
 
-- name: Set ripple users autherised ssh key
+- name: Set users autherised ssh key
   ansible.builtin.include_tasks:
     file: setup_linger.yml
   loop: "{{ setup_uwusers_definitions }}"
