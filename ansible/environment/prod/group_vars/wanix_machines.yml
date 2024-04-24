@@ -1,6 +1,9 @@
 wanix_customisations:
   - name: wanix_base_tools
+    packages:
+      - git
     roles:
+      - name: setup_git
       - name: install_yay
         deb_install: false
 
@@ -10,11 +13,9 @@ wanix_customisations:
 
   - name: setup_base_environment
     packages:
-      - git
       - linux-headers
       - python-pip
     roles:
-      - name: setup_git
 
   - name: setup_uwusers
     roles:
