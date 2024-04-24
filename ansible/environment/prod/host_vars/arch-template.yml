@@ -6,3 +6,4 @@ setup_uwusers_definitions:
     ssh_keys:
       - "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
       - "{{ lookup('bws_cache', 'jankvisor_sshkey_public').value }}"
+    shell: /bin/bash
