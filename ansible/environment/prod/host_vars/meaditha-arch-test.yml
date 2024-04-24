@@ -8,7 +8,7 @@ setup_nmcli_interfaces:
     gateway: "10.0.1.1"
     dbs: "1.1.1.1"
 
-wanix_extra_customizations:
+wanix_extra_customisations:
   - graphical_common
   - graphical_sound
   - graphical_social

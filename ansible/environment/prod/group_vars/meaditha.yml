@@ -1,4 +1,4 @@
-wanix_include_customizations:
+wanix_include_customisations:
   - cli_base_tools
   - cli_dev_tools
   - x_server

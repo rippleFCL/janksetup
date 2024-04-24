@@ -1,4 +1,4 @@
-wanix_default_customizations:
+wanix_default_customisations:
   - post_vm_clone
   - wanix_base_tools
   - setup_base_environment

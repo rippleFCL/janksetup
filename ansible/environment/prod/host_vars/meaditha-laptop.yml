@@ -6,7 +6,7 @@ nmcli_interfaces:
 
 interface_name: enp9s0
 
-wanix_extra_customizations:
+wanix_extra_customisations:
   - graphical_sound
   - graphical_common
   - graphical_social

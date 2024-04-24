@@ -15,8 +15,8 @@ class FilterModule:
             'filter_types': self.filter_types
         }
 
-    def file_copy_processor(self, files: list[dict[str, str]], packages: list[str], customizations: list[str], copy_info_data: list[dict[str, str]], dep_map: list[dict[str, Any]], user_home: str):
-        ''' takes a customization dict and returns a zip of all packages and if thay are installed'''
+    def file_copy_processor(self, files: list[dict[str, str]], packages: list[str], customisations: list[str], copy_info_data: list[dict[str, str]], dep_map: list[dict[str, Any]], user_home: str):
+        ''' takes a customisation dict and returns a zip of all packages and if thay are installed'''
         files_to_copy: list[dict[str, str]] = []
         if isinstance(files, dict):
             files = [files]
@@ -28,17 +28,20 @@ class FilterModule:
                         package in packages for package in dependency.get("packages", [])]
                     if False in package_dep_check:
                         break
-                    customizations_dep_check = [
-                        customization in customizations for customization in dependency.get("customizations", [])]
-                    if False in customizations_dep_check:
+                    customisations_dep_check = [
+                        customisation in customisations for customisation in dependency.get("customisations", [])]
+                    if False in customisations_dep_check:
                         break
             else:
                 dest_info = {"path": ""}
                 for copy_info in copy_info_data:
                     if copy_info["source"] in fullpath:
-                        dest_info["mode"] = copy_info.get("mode", dest_info.get("mode", ""))
-                        dest_info["user"] = copy_info.get("user", dest_info.get("user", ""))
-                        dest_info["group"] = copy_info.get("group", dest_info.get("group", ""))
+                        dest_info["mode"] = copy_info.get(
+                            "mode", dest_info.get("mode", ""))
+                        dest_info["user"] = copy_info.get(
+                            "user", dest_info.get("user", ""))
+                        dest_info["group"] = copy_info.get(
+                            "group", dest_info.get("group", ""))
 
                         if "home_relative" in copy_info:
                             dest_info["path"] = user_home + \

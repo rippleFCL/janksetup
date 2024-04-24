@@ -1,8 +1,8 @@
-wanix_customizations: []
+wanix_customisations: []
 
-wanix_default_customizations: []
-wanix_include_customizations: []
-wanix_extra_customizations: []
+wanix_default_customisations: []
+wanix_include_customisations: []
+wanix_extra_customisations: []
 
 wanix_file_destinations: []
 wanix_file_depmap: []

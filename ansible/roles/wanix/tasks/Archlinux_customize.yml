@@ -1,30 +1,30 @@
 ---
-- name: Install pip Packages for {{ customization.name }}
+- name: Install pip Packages for {{ customisation.name }}
   become_user: ripple
   become: true
   ansible.builtin.pip:
-    name: "{{ customization.pip_packages }}"
+    name: "{{ customisation.pip_packages }}"
     extra_args: --user --break-system-packages
-  when: customization.pip_packages is defined and customization.pip_packages
+  when: customisation.pip_packages is defined and customisation.pip_packages
   tags: wanix_pip
 
-- name: Install yay Packages for {{ customization.name }}
+- name: Install yay Packages for {{ customisation.name }}
   become_user: ripple
   become: true
   kewlfft.aur.aur:
     use: yay
-    name: "{{ customization.packages }}"
+    name: "{{ customisation.packages }}"
     state: present
-  when: customization.packages is defined and customization.packages
+  when: customisation.packages is defined and customisation.packages
   tags: wanix_apt
 
-- name: Run roles for {{ customization.name }}
+- name: Run roles for {{ customisation.name }}
   ansible.builtin.include_role:
     apply:
       tags: wanix_roles
     name: "{{ role }}"
-  when: customization.roles is defined
-  loop: "{{ customization.roles }}"
+  when: customisation.roles is defined
+  loop: "{{ customisation.roles }}"
   loop_control:
     loop_var: "role"
   tags: wanix_roles

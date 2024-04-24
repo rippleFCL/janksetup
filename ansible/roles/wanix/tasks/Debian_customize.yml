@@ -1,40 +1,40 @@
 ---
-- name: Add apt sources for {{ customization.name }}
+- name: Add apt sources for {{ customisation.name }}
   ansible.builtin.include_tasks:
     apply:
       tags: wanix_apt
     file: add_apt_source.yml
-  when: customization.apt_sources is defined
-  loop: "{{ customization.apt_sources }}"
+  when: customisation.apt_sources is defined
+  loop: "{{ customisation.apt_sources }}"
   loop_control:
     loop_var: "source"
   tags: wanix_apt
 
-- name: Install apt Packages for {{ customization.name }}
+- name: Install apt Packages for {{ customisation.name }}
   ansible.builtin.apt:
-    name: "{{ customization.packages }}"
+    name: "{{ customisation.packages }}"
     state: present
     update_cache: true
     install_recommends: false
-  when: customization.packages is defined
+  when: customisation.packages is defined
   tags: wanix_apt
 
-- name: Install pip Packages for {{ customization.name }}
+- name: Install pip Packages for {{ customisation.name }}
   become_user: ripple
   become: true
   ansible.builtin.pip:
-    name: "{{ customization.pip_packages }}"
+    name: "{{ customisation.pip_packages }}"
     extra_args: --user --break-system-packages
-  when: customization.pip_packages is defined
+  when: customisation.pip_packages is defined
   tags: wanix_pip
 
-- name: Run roles for {{ customization.name }}
+- name: Run roles for {{ customisation.name }}
   ansible.builtin.include_role:
     apply:
       tags: wanix_roles
     name: "{{ role }}"
-  when: customization.roles is defined
-  loop: "{{ customization.roles }}"
+  when: customisation.roles is defined
+  loop: "{{ customisation.roles }}"
   loop_control:
     loop_var: "role"
   tags: wanix_roles

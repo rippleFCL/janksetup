@@ -15,7 +15,7 @@ nmcli_interfaces:
   - name: enp6s21
     method: auto
 
-wanix_extra_customizations:
+wanix_extra_customisations:
   - graphical_common
   - graphical_sound
   - graphical_social

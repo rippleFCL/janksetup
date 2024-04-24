@@ -1,24 +1,24 @@
 ---
-- name: Including customizations
+- name: Including customisations
   ansible.builtin.debug:
-    msg: "{{ wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations }}"
+    msg: "{{ wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations }}"
 
 
-- name: Include distro specific customizations
+- name: Include distro specific customisations
   ansible.builtin.include_tasks:
 
     file: "{{ ansible_facts['os_family'] }}_customize.yml"
-  when: customization.name in wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations
-  loop: "{{ wanix_customizations | customizations_flattener(ansible_facts['os_family']) }}"
+  when: customisation.name in wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations
+  loop: "{{ wanix_customisations | customisations_flattener(ansible_facts['os_family']) }}"
   loop_control:
-    loop_var: customization
+    loop_var: customisation
 
 - name: Run dotfile manager dotman
   ansible.builtin.include_role:
     name: dotman
   vars:
-    dotman_installed_packages: "{{ wanix_customizations | cd_package_extractor(wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations, ansible_facts['os_family']) }}"
-    dotman_installed_custiomizations: "{{ wanix_include_customizations + wanix_default_customizations + wanix_extra_customizations }}"
+    dotman_installed_packages: "{{ wanix_customisations | cd_package_extractor(wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations, ansible_facts['os_family']) }}"
+    dotman_installed_custiomizations: "{{ wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations }}"
     dotman_file_destinations: "{{ wanix_file_destinations }}"
     dotman_file_depmap: "{{ wanix_file_depmap }}"
     dotman_file_copys: "{{ wanix_file_copys }}"
