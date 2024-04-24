@@ -1,8 +1,9 @@
 wanix_default_customizations:
   - post_vm_clone
+  - wanix_base_tools
+  - setup_base_environment
   - setup_uwusers
   - nmcli_networking
-  - setup_base_environment
 
 setup_uwusers_definitions:
   - username: ripple

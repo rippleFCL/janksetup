@@ -1,7 +1,20 @@
 wanix_customizations:
+  - name: wanix_base_tools
+    roles:
+      - install_yay
+
   - name: post_vm_clone
     roles:
       - post_clone_setup
+
+  - name: setup_base_environment
+    packages:
+      - git
+      - linux-headers
+      - python-pip
+    roles:
+      - name: setup_git
+
 
   - name: setup_uwusers
     roles:
@@ -12,15 +25,6 @@ wanix_customizations:
       - networkmanager
     roles:
       - setup_nmcli
-
-  - name: setup_base_environment
-    packages:
-      - git
-      - linux-headers
-      - python-pip
-    roles:
-      - install_bootstrap_tools
-      - install_yay
 
   - name: cli_base_tools
     packages:
