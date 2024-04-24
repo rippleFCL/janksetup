@@ -1,7 +1,6 @@
 ---
 - name: "Copy private keys to user directory"
-  diff: false
-
+  no_log: false
   ansible.builtin.copy:
     dest: "{{ user.directory }}/id_{{ item.key_type }}"
     content: "{{ item.content }}\n"
@@ -14,7 +13,6 @@
 
 
 - name: "Copy public keys to user directory"
-  diff: false
   ansible.builtin.copy:
     dest: "{{ user.directory }}/id_{{ item.key_type }}.pub"
     content: "{{ item.content }}\n"
