@@ -30,5 +30,6 @@ setup_private_ssh_keys_data:
       - content: "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
         key_type: "ed25519"
 
+vm_pcie_when_provisioning: true
 
 vm_startup_order: order=2
