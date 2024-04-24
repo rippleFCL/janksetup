@@ -1,7 +1,8 @@
 wanix_customizations:
   - name: wanix_base_tools
     roles:
-      - install_yay
+      - name: install_yay
+        deb_install: false
 
   - name: post_vm_clone
     roles:
@@ -14,7 +15,6 @@ wanix_customizations:
       - python-pip
     roles:
       - name: setup_git
-
 
   - name: setup_uwusers
     roles:
