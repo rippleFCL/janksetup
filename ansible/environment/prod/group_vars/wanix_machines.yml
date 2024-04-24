@@ -15,7 +15,6 @@ wanix_customisations:
     packages:
       - linux-headers
       - python-pip
-    roles:
 
   - name: setup_uwusers
     roles:
