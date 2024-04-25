@@ -32,7 +32,6 @@
     name: iscsi.service
     enabled: true
 
-
 - name: Connect iscsi disks
   community.general.open_iscsi:
     login: true

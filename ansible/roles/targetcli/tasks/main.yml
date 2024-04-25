@@ -18,7 +18,6 @@
     enabled: true
     state: 'started'
 
-
 - name: Define backstore objects
   targetcli_backstore:
     backstore_type: "{{ item.1.type }}"

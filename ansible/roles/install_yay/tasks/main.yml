@@ -7,7 +7,6 @@
 - name: Make, clone, and build yay
   when: not st.stat.exists
   block:
-
     - name: Make yay build dir
       ansible.builtin.file:
         path: "/tmp/yay"

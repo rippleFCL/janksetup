@@ -3,10 +3,8 @@
   ansible.builtin.debug:
     msg: "{{ wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations }}"
 
-
 - name: Include distro specific customisations
   ansible.builtin.include_tasks:
-
     file: "{{ ansible_facts['os_family'] }}_customize.yml"
   when: customisation.name in wanix_include_customisations + wanix_default_customisations + wanix_extra_customisations
   loop: "{{ wanix_customisations | customisations_flattener(ansible_facts['os_family']) }}"

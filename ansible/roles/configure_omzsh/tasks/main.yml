@@ -14,7 +14,6 @@
         repo: https://github.com/ohmyzsh/ohmyzsh.git
         dest: /home/ripple/.oh-my-zsh
 
-
     - name: Set default shell for users
       become: true
       ansible.builtin.user:
