@@ -1,9 +1,8 @@
 wanix_customisations:
   - name: wanix_base_tools
     packages:
-      - git
     roles:
-      - name: setup_git
+      - name: install_git
       - name: install_yay
         deb_install: false
 
