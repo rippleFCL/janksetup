@@ -45,17 +45,7 @@
   become: true
   serial: 1
   tasks:
-    - name: "Unconfigure vm"
-      community.general.proxmox_kvm:
-        api_user: "{{ proxmox_username }}"
-        api_password: "{{ proxmox_password }}"
-        api_host: "{{ proxmox_url }}"
-        node: pve-workstation
-        vmid: "{{ vm_id }}"
-        delete: "args,{{ networkinfo.keys() | join(',') }},{{ pcieinfo.keys() | join(',') }},{{ usbinfo.keys() | join(',') }}"
-      delegate_to: localhost
-
-    - name: "Configure vm previson enviroment"
+    - name: "Configure vm"
       community.general.proxmox_kvm:
         api_user: "{{ proxmox_username }}"
         api_password: "{{ proxmox_password }}"
@@ -66,9 +56,13 @@
         vmid: "{{ vm_id }}"
         cpu: host
         cores: "{{ cpuinfo }}"
-        net: "{{ networkinfo }}"
         memory: "{{ memoryinfo }}"
-        hostpci: "{{ pcieinfo if vm_pcie_when_provisioning else omit }}"
+        args: "{{ vmargs }}"
+        net: "{{ networkinfo }}"
+        hostpci: "{{ pcieinfo }}"
+        usb: "{{ usbinfo }}"
+        autostart: "{{ vm_autostart | default(omit) }}"
+        startup: "{{ vm_startup_order }}"
       delegate_to: localhost
 
     - name: "Start vm"
@@ -160,27 +154,6 @@
     - name: "Wait for vm to stop"
       ansible.builtin.pause:
         seconds: 15
-
-    - name: "Configure vm"
-      community.general.proxmox_kvm:
-        api_user: "{{ proxmox_username }}"
-        api_password: "{{ proxmox_password }}"
-        api_host: "{{ proxmox_url }}"
-        update: true
-        update_unsafe: true
-        node: pve-workstation
-        vmid: "{{ vm_id }}"
-        cpu: host
-        cores: "{{ cpuinfo }}"
-        memory: "{{ memoryinfo }}"
-        args: "{{ vmargs }}"
-        net: "{{ networkinfo }}"
-        hostpci: "{{ pcieinfo }}"
-        usb: "{{ usbinfo }}"
-        autostart: "{{ vm_autostart | default(omit) }}"
-        startup: "{{ vm_startup_order }}"
-      delegate_to: localhost
-
 
 - name: Start post prevision vms
   hosts: wanix_vms
