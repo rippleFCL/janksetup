@@ -20,3 +20,6 @@
     wanix_dotman_file_destinations: "{{ wanix_file_destinations }}"
     wanix_dotman_file_depmap: "{{ wanix_file_depmap }}"
     wanix_dotman_file_copys: "{{ wanix_file_copys }}"
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

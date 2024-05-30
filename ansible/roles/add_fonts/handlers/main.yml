@@ -1,5 +1,5 @@
 ---
-- name: Reload Debian Font cache
+- name: Reload Font cache
   ansible.builtin.command:
     cmd: fc-cache -fv
   changed_when: true
