@@ -15,6 +15,7 @@
         full: false
         format: unspecified
         timeout: 500
+      notify: Update system
       delegate_to: localhost
 
     - name: "Stop vm"
