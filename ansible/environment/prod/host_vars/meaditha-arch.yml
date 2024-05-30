@@ -1,19 +1,14 @@
-hostname: meaditha-debtest
 vm_id: 160
 vm_autostart: true
 vm_start_after_provision: true
 
-nmcli_interfaces:
-  - name: enp6s18
+setup_nmcli_interfaces:
+  - conn_name: "mgmt network"
+    ifname: enp6s18
     method: manual
     ip: 10.0.1.190/24
-  - name: enp6s19
-    method: auto
-  - name: enp6s20
-    method: manual
-    ip: 10.2.1.2/24
-  - name: enp6s21
-    method: auto
+    gateway: "10.0.1.1"
+    dbs: "1.1.1.1"
 
 wanix_extra_customisations:
   - graphical_common
