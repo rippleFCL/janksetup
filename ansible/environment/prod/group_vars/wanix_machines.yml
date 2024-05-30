@@ -1,6 +1,9 @@
 wanix_customisations:
+  - name: setup_uwusers
+    roles:
+      - setup_uwusers
+
   - name: wanix_base_tools
-    packages:
     roles:
       - name: install_git
       - name: install_yay
@@ -14,10 +17,6 @@ wanix_customisations:
     packages:
       - linux-headers
       - python-pip
-
-  - name: setup_uwusers
-    roles:
-      - setup_uwusers
 
   - name: nmcli_networking
     packages:

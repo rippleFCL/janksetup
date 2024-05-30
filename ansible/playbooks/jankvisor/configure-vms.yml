@@ -32,6 +32,13 @@
       ansible.builtin.pause:
         seconds: 15
 
+  handlers:
+    - name: "Update system"
+      ansible.builtin.set_fact:
+        needs_update: True
+
+
+
 - name: Provision vms
   hosts: wanix_vms
   gather_facts: false
@@ -46,7 +53,6 @@
         node: pve-workstation
         vmid: "{{ vm_id }}"
         delete: "args,{{ networkinfo.keys() | join(',') }},{{ pcieinfo.keys() | join(',') }},{{ usbinfo.keys() | join(',') }}"
-      notify: Update system
       delegate_to: localhost
 
     - name: "Configure vm previson enviroment"
@@ -103,7 +109,11 @@
 
 
     - name: "Update system if just cloned"
-      ansible.builtin.meta: flush_handlers
+      become: true
+      community.general.pacman:
+        update_cache: true
+        upgrade: true
+      when: needs_update is defined
 
     - name: Build machine with wanix
       ansible.builtin.include_role:
@@ -170,13 +180,6 @@
         autostart: "{{ vm_autostart | default(omit) }}"
         startup: "{{ vm_startup_order }}"
       delegate_to: localhost
-
-  handlers:
-    - name: "Update system"
-      become: true
-      community.general.pacman:
-        update_cache: true
-        upgrade: true
 
 
 - name: Start post prevision vms
