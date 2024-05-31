@@ -7,7 +7,6 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 export EDITOR="nano"
 export TERM=xterm-256color
 
-(cat ~/.cache/wal/sequences &)
 
 cat ~/.cache/wal/sequences
 

@@ -3,6 +3,8 @@
     path: "{{ file.dest }}"
     state: directory
     mode: '0755'
+    owner: "{{ file.user }}"
+    group: "{{ file.group }}"
   loop: "{{ wanix_dotman_files | filter_types('directory')  }}"
   loop_control:
     loop_var: file

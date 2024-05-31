@@ -16,3 +16,16 @@ wanix_extra_customisations:
   - graphical_social
   - graphical_dev
   - nvidia_drivers
+  - configure_extra_disks
+
+configure_iscsi_disks_targets:
+  - target: iqn.1994-05.com.redhat:linux
+    portal: "10.0.1.45"
+
+configure_iscsi_disks_initiator_name: iqn.2016-04.com.open-iscsi:linux-vm
+
+setup_fstab_mounts:
+  - path: /mnt/remote_drive
+    src: UUID=492c76fe-b6e7-40e4-a021-2c000b7bc764
+    type: btrfs
+    options: _netdev

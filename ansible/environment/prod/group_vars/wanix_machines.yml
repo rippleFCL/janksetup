@@ -2,6 +2,7 @@ wanix_customisations:
   - name: setup_uwusers
     roles:
       - setup_uwusers
+      - setup_private_ssh_keys
 
   - name: wanix_base_tools
     roles:
@@ -103,8 +104,10 @@ wanix_customisations:
       - rxvt-unicode
       - imagemagick
       - kitty
+      - python-gobject
 
     pip_packages:
+      - pycairo
       - escrotum
       - name: pywal16
         install: git+https://github.com/eylles/pywal16
@@ -112,9 +115,13 @@ wanix_customisations:
     roles:
       - add_fonts
 
-  - name: configure_iscsi_disks
+  - name: configure_extra_disks
+    packages:
+      - btrfs-progs
+      - open-iscsi
     roles:
       - configure_iscsi_disks
+      - setup_fstab
 
   - name: old_af_gpu_patch
     roles:

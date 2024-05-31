@@ -1,12 +1,4 @@
 ---
-- name: Install Package for open-iscsi
-  become_user: ripple
-  become: true
-  kewlfft.aur.aur:
-    use: yay
-    name: open-iscsi
-    state: present
-
 - name: Set iscsi initiator name
   ansible.builtin.lineinfile:
     dest: "/etc/iscsi/initiatorname.iscsi"

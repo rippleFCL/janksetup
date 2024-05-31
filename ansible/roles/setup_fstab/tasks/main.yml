@@ -1,0 +1,17 @@
+---
+- name: Make mountpoints
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: root
+    mode: "755"
+  loop: "{{ setup_fstab_mounts }}"
+
+- name: Setup fstab mounts
+  ansible.posix.mount:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    fstype: "{{ item.type }}"
+    opts: "{{ item.options }}"
+    state: present
+  loop: "{{ setup_fstab_mounts }}"

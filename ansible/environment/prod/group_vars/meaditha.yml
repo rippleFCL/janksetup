@@ -4,7 +4,7 @@ wanix_include_customisations:
   - x_server
   - pipewire_sound_server
   - meaditha
-  # - configure_iscsi_disks
+
 
 add_fonts_by_url:
   - name: meslo
@@ -20,15 +20,25 @@ add_fonts_by_url:
 
 
 wanix_file_copys:
+  - ./symlinks/
   - ./dotfiles/
 
+
 wanix_file_destinations:
+  - source: symlinks/
+    home_relative: ./
+    link_root_relative: /mnt/remote_drive/
+    mode: "0755"
+    user: ripple
+    group: ripple
   - source: dotfiles/
-    home_relative: /
+    home_relative: ./
     mode: "0644"
     user: ripple
     group: ripple
   - source: dotfiles/.config/bspwm/bspwmrc
+    mode: "0744"
+  - source: dotfiles/.config/sxhkd/sxhkdrc
     mode: "0744"
   - source: .sh
     mode: "0744"
@@ -59,8 +69,3 @@ bsm_install_path: /tmp/bsm
 
 setup_sddm_theme: sugar-candy
 
-configure_iscsi_disks_targets:
-  - target: iqn.1994-05.com.redhat:linux
-    portal: "10.0.1.45"
-
-configure_iscsi_disks_initiator_name: iqn.2016-04.com.open-iscsi:linux-vm

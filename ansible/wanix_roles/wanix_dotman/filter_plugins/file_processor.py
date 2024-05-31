@@ -1,6 +1,6 @@
 from typing import Any
 from ansible.parsing.yaml.objects import AnsibleUnicode
-
+from pathlib import Path
 
 class FilterModule:
     ''' Gens da args '''
@@ -21,7 +21,7 @@ class FilterModule:
         if isinstance(files, dict):
             files = [files]
         for file in files:
-            fullpath = file["root"] + file["path"]
+            fullpath = str(Path(file["root"]) / file["path"])
             for dependency in dep_map:
                 if dependency["path"] in fullpath:
                     package_dep_check = [
@@ -36,22 +36,28 @@ class FilterModule:
                 dest_info = {"path": ""}
                 for copy_info in copy_info_data:
                     if copy_info["source"] in fullpath:
-                        dest_info["mode"] = copy_info.get(
-                            "mode", dest_info.get("mode", ""))
-                        dest_info["user"] = copy_info.get(
-                            "user", dest_info.get("user", ""))
-                        dest_info["group"] = copy_info.get(
-                            "group", dest_info.get("group", ""))
+                        dest_info.update({
+                            "mode": copy_info.get("mode", dest_info.get("mode", "")),
+                            "user": copy_info.get("user", dest_info.get("user", "")),
+                            "group": copy_info.get("group", dest_info.get("group", ""))
+                        })
+
+                        if "link_home_relative" in copy_info or "link_root_relative" in copy_info:
+                            file["state"] = "link"
+
+                        if "link_home_relative" in copy_info:
+                            file["src"] = str(Path(user_home) / copy_info["link_home_relative"] / file["path"])
+                        elif "link_root_relative" in copy_info:
+                            file["src"] = str(Path(copy_info["link_root_relative"]) / file["path"])
 
                         if "home_relative" in copy_info:
-                            dest_info["path"] = user_home + \
-                                copy_info["home_relative"] + file["path"]
+                            dest_info["path"] = str(Path(user_home) / copy_info["home_relative"] / file["path"])
                         elif "root_relative" in copy_info:
-                            dest_info["path"] = copy_info["root_relative"] + \
-                                file["path"]
+                            dest_info["path"] = str(Path(copy_info["root_relative"]) / file["path"])
 
-                if False in [bool(value) for value in dest_info.values()]:
-                    raise Exception("missing dest info")
+                missing_keys = list(filter(lambda x: not x[1], [(key,bool(value)) for key, value in dest_info.items()]))
+                if missing_keys:
+                    raise Exception(f"missing dest info keys: {', '.join(map(lambda x: x[0], missing_keys))}")
 
                 file_data = {
                     "src": fullpath,
@@ -63,7 +69,6 @@ class FilterModule:
                     "mode": dest_info["mode"]
                 }
                 files_to_copy.append(file_data)
-
         return files_to_copy
 
     def filter_types(self, file_infos: list[dict[str, str]], type_filer: str):

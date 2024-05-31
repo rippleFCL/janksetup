@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PATH="${PATH}:${HOME}/.local/bin/"
-
 setimg () {
   nitrogen $1 --set-zoom-fill
 }
@@ -17,7 +15,7 @@ else
     RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
 
     setimg ${DIR}/${RANDOMPICS}
-    wal -e -i ${DIR}/${RANDOMPICS} --cols16
+    wal -e -i ${DIR}/${RANDOMPICS} --cols16 -b "#1b1a27" --backend colorz
 
     echo "Successfully set a new wallpaper and generated colors from it."
 fi

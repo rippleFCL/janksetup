@@ -1,7 +1,7 @@
 #
 # wm independent hotkeys
 #
-
+PATH="${PATH}:${HOME}/.local/bin/"
 # terminal emulator
 super + t
 	kitty
@@ -14,7 +14,7 @@ super + d
 	.config/rofi/scripts/launcher_t1
 
 super + w
-	.config/scripts/wallpaper/changewallpaper.sh
+	.config/scripts/wallpaper/changewallpaper.sh &> ~/logs/changewallpaper.log
 
 # make sxhkd reload its configuration files:
 super + Escape

@@ -31,7 +31,7 @@ setup_private_ssh_keys_data:
     directory: "/root/.ssh"
     private_keys:
       - content: "{{ lookup('bws_cache', 'jankvisor_sshkey_private').value }}"
-        key_type: "rsa"
+        key_type: "ed25519"
     public_keys:
       - content: "{{ lookup('bws_cache', 'jankvisor_sshkey_public').value }}"
-        key_type: "rsa"
+        key_type: "ed25519"
