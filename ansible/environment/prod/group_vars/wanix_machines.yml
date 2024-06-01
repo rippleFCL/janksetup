@@ -69,6 +69,8 @@ wanix_customisations:
       - sddm
       - gnome-font-viewer
       - gsfonts
+      - thunar
+      - eog
 
     roles:
       - name: setup_sddm
