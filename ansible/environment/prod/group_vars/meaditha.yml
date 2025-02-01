@@ -20,12 +20,12 @@ add_fonts_by_url:
 
 
 wanix_file_copys:
-  - ./symlinks/
+  - ./symlinks/remote_drive/
   - ./dotfiles/
 
 
 wanix_file_destinations:
-  - source: symlinks/
+  - source: symlinks/remote_drive/
     home_relative: ./
     link_root_relative: /mnt/remote_drive/
     mode: "0755"
@@ -61,6 +61,8 @@ wanix_file_depmap:
     packages: [rofi]
   - path: dotfiles/.config/sxhkd
     packages: [sxhkd]
+  - path: symlinks/remote_drive/
+    customisations: [configure_extra_disks]
 
 
 wanix_user: ripple
@@ -69,3 +71,4 @@ bsm_install_path: /tmp/bsm
 
 setup_sddm_theme: sugar-candy
 
+x_dpi: 157

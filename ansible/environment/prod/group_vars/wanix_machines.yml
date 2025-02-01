@@ -2,7 +2,6 @@ wanix_customisations:
   - name: setup_uwusers
     roles:
       - setup_uwusers
-      - setup_private_ssh_keys
 
   - name: wanix_base_tools
     roles:
@@ -35,6 +34,7 @@ wanix_customisations:
       - neofetch
       - calc
       - zsh
+      - screen
 
     roles:
       - name: configure_omzsh
@@ -47,6 +47,9 @@ wanix_customisations:
       - sshpass
       - direnv
       - docker
+      - docker-compose
+      - traceroute
+      - sops
     roles:
       - name: install_bsm
         provides_pkgs:
@@ -55,7 +58,7 @@ wanix_customisations:
   - name: nvidia_drivers
     packages:
       - nvidia-vaapi-driver
-      - nvidia-driver
+      - nvidia
       - firmware-misc-nonfree
 
   - name: x_server
@@ -65,7 +68,9 @@ wanix_customisations:
 
   - name: graphical_common
     packages:
-      - firefox
+      - firefox-developer-edition
+      - clapper
+      - gst-libav
       - sddm
       - gnome-font-viewer
       - gsfonts
@@ -77,11 +82,20 @@ wanix_customisations:
 
   - name: graphical_dev
     packages:
+      - devtoys-bin
       - visual-studio-code-bin
+      - rdesktop
+
+  - name: graphical_editing
+    packages:
+      - davinci-resolve
+      - nvidia-utils
+      - opencl-nvidia
 
   - name: graphical_social
     packages:
       - discord
+      - vesktop
 
   - name: graphical_sound
     packages:
@@ -97,6 +111,7 @@ wanix_customisations:
 
   - name: meaditha
     packages:
+      - btop
       - bspwm
       - sxhkd
       - polybar
@@ -107,15 +122,20 @@ wanix_customisations:
       - imagemagick
       - kitty
       - python-gobject
-
+      - scrot
     pip_packages:
       - pycairo
-      - escrotum
       - name: pywal16
         install: git+https://github.com/eylles/pywal16
+      - colorz
 
     roles:
       - add_fonts
+
+  - name: bluetooth
+    packages:
+      - blueman
+      - bluez
 
   - name: configure_extra_disks
     packages:
@@ -129,3 +149,33 @@ wanix_customisations:
     roles:
       - old_af_gpu_patch
 
+
+setup_uwusers_definitions:
+  - username: ripple
+    home: /home/ripple
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ripple_user_hashed_password').value }}"
+    ssh_keys:
+      - name: id_ed25519
+        public_key: "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+        private_key: "{{ lookup('bws_cache', 'ripple_sshkey_private').value }}"
+    authorized_keys:
+      - "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+      - "{{ lookup('bws_cache', 'jankvisor_sshkey_public').value }}"
+    shell: /bin/zsh
+  - username: ansible
+    sudo: true
+    password: "{{ lookup('bws_cache', 'ansible_user_hashed_password').value }}"
+    authorized_keys:
+      - "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+      - "{{ lookup('bws_cache', 'jankvisor_sshkey_public').value }}"
+    shell: /bin/bash
+
+setup_private_ssh_keys_data:
+  - username: ripple
+    directory: "/home/ripple/.ssh"
+    private_keys:
+      - content: "{{ lookup('bws_cache', 'ripple_sshkey_private').value }}"
+    public_keys:
+      - content: "{{ lookup('bws_cache', 'ripple_sshkey_pub').value }}"
+        key_type: "ed25519"

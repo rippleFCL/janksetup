@@ -7,3 +7,4 @@ roles:
   - name: diodonfrost.terraform
   - name: kilip.chezmoi
   - name: OndrejHome.targetcli-modules
+  - name: ripplefcl.veeam-agent

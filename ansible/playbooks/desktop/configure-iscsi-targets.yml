@@ -2,9 +2,9 @@
   hosts: jankvisor-iscsi
   become: true
   tasks:
-    - name: Post machine setup
-      ansible.builtin.include_role:
-        name: post_machine_setup
+    # - name: Post machine setup
+    #   ansible.builtin.include_role:
+    #     name: post_machine_setup
 
     - name: Install targetcli deps
       ansible.builtin.include_role:

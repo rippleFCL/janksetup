@@ -1,5 +1,5 @@
 {
-    "ansible.python.interpreterPath": "/home/ripple/programming/jankvisor/.venv/bin/python",
+    "ansible.python.interpreterPath": "/root/janksetup/.venv/bin/python",
     "files.associations": {
         "*.yml": "ansible",
         "*.yaml": "ansible",

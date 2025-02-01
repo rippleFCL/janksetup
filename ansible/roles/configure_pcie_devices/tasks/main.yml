@@ -9,8 +9,8 @@
       GRUB_CMDLINE_LINUX_DEFAULT="{{ linux_cmdline_args | join(' ') }}
       vfio_pci.ids={{ vfio_pci_ids | join(',') }}"
   notify:
-   - Update grub
-   - Reboot pve
+    - Update grub
+    - Reboot pve
 
 - name: "Add vfio modules"
   ansible.builtin.blockinfile:

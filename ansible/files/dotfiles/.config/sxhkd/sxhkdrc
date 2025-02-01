@@ -7,7 +7,7 @@ super + t
 	kitty
 
 super + s
-	escrotum -s /home/ripple/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png
+	scrot -s /home/ripple/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png
 
 # program launcher
 super + d

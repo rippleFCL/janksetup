@@ -7,14 +7,19 @@ setup_nmcli_interfaces:
     ifname: enp6s18
     method: manual
     ip: 10.0.1.190/24
-    gateway: "10.0.1.1"
-    dbs: "1.1.1.1"
+    dns: "10.0.1.1"
+  - conn_name: "lan network"
+    ifname: enp6s19
+    method: manual
+    ip: 10.0.2.10/24
+    gateway: "10.0.2.1"
 
 wanix_extra_customisations:
   - graphical_common
   - graphical_sound
   - graphical_social
   - graphical_dev
+  - graphical_editing
   - nvidia_drivers
   - configure_extra_disks
 
@@ -26,6 +31,8 @@ configure_iscsi_disks_initiator_name: iqn.2016-04.com.open-iscsi:linux-vm
 
 setup_fstab_mounts:
   - path: /mnt/remote_drive
-    src: UUID=492c76fe-b6e7-40e4-a021-2c000b7bc764
+    src: UUID=b899c026-4a9f-46dd-9aed-79f7acfa3f3a
     type: btrfs
     options: _netdev
+
+install_git_gpg_key: "3BAB450B990FE678"

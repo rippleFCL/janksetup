@@ -1,9 +1,9 @@
 ---
 - name: local provision wanix vms
-  hosts: wanix_vms
+  hosts: wanix_machines
   gather_facts: true
   become: true
-  tasks:  
+  tasks:
     - name: Build machine with wanix
       ansible.builtin.include_role:
         name: wanix

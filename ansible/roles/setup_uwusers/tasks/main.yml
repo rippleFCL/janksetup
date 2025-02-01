@@ -23,15 +23,23 @@
 
 - name: Set users autherised ssh key
   ansible.builtin.include_tasks:
-    file: setup_ssh_keys.yml
+    file: setup_authorized_keys.yml
   loop: "{{ setup_uwusers_definitions }}"
   loop_control:
     loop_var: "userdata"
     label: "{{ userdata.username }}"
 
-- name: Set users autherised ssh key
+- name: Set users linger
   ansible.builtin.include_tasks:
     file: setup_linger.yml
+  loop: "{{ setup_uwusers_definitions }}"
+  loop_control:
+    loop_var: "userdata"
+    label: "{{ userdata.username }}"
+
+- name: Set users ssh key
+  ansible.builtin.include_tasks:
+    file: setup_sshkeys.yml
   loop: "{{ setup_uwusers_definitions }}"
   loop_control:
     loop_var: "userdata"

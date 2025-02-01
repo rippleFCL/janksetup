@@ -9,9 +9,7 @@ pcieinfo:
 
 networkinfo:
   net0: "virtio=62:03:E8:5C:92:35,bridge=vmbr0,firewall=0,tag=10"
-  net1: "virtio=62:03:E8:5C:92:36,bridge=vmbr0,firewall=0,tag=70"
-  net2: "virtio=62:03:E8:5C:92:37,bridge=vmbr0,firewall=0,tag=400"
-  net3: "virtio=62:03:E8:5C:92:38,bridge=vmbr0,firewall=0"
+  net1: "virtio=62:03:E8:5C:92:36,bridge=vmbr0,firewall=0,tag=1000"
 
 audioinfo:
   - type: duplex

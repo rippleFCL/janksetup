@@ -4,4 +4,4 @@
     user: "{{ userdata.username }}"
     state: present
     key: "{{ item }}"
-  loop: "{{ userdata.ssh_keys }}"
+  loop: "{{ userdata.authorized_keys }}"

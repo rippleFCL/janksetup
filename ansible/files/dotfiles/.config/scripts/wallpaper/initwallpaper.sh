@@ -15,7 +15,7 @@ else
     RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
 
     setimg ${DIR}/${RANDOMPICS}
-    wal -e -i ${DIR}/${RANDOMPICS} --cols16 -b "#1b1a27" --backend colorz
+    wal -e -i ${DIR}/${RANDOMPICS} --cols16 -b "#131521" --backend colorz
 
     echo "Successfully set a new wallpaper and generated colors from it."
 fi

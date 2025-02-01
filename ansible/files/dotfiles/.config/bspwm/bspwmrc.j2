@@ -8,8 +8,12 @@ bspc config border_width         2
 bspc config window_gap          10
 bspc config left_padding         0
 bspc config right_padding         0
-bspc config top_padding         100
-bspc config bottom_padding         40
+{% if inventory_hostname == "meditha_arch"%}
+bspc config top_padding         60
+{% else %}
+bspc config top_padding         40%
+{% endif %}
+bspc config bottom_padding         0
 
 
 bspc config focus_follows_pointer true
@@ -18,17 +22,26 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Blueman-manager desktop='^10'
-bspc rule -a Pavucontrol desktop='^10'
+bspc rule -a pavucontrol desktop='^10'
 bspc rule -a discord desktop='^1' follow=on
+bspc rule -a vesktop desktop='^1' follow=on
 bspc rule -a firefox --one-shot  desktop='^2'
 bspc rule -a Code --one-shot  desktop='^3'
 bspc rule -a easyeffects desktop='^9'
-bspc rule -a Spotify desktop='^8'
+bspc rule -a Spotify desktop='^7'
+bspc rule -a motion_recorder desktop='^8'
+
+
+{% if inventory_hostname == "meditha_arch"%}
+bspc rule -a kitty-btop state=floating layer=below sticky=on rectangle=1500x1905+100+150
+{% else %}
+bspc rule -a kitty-btop state=floating layer=below sticky=on rectangle=1200x900+80+110
+{% endif %}
 
 ~/.config/scripts/jankvisor/launch_bt.sh &
 pavucontrol &
-discord &
-firefox &
+vesktop &
+firefox-developer-edition &
 code &
 spotify-launcher &
 easyeffects &
@@ -37,3 +50,4 @@ GDK_SCALE=2 polybar mybar 2>&1 &
 dunst &
 xset -dpms &
 xset s off &
+kitty --class kitty-btop btop &

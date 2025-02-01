@@ -38,6 +38,7 @@
     owner: "{{ file.user }}"
     group: "{{ file.group }}"
     state: link
+    force: true
   loop: "{{ wanix_dotman_files | filter_types('link') }}"
   loop_control:
     loop_var: file

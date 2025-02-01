@@ -1,0 +1,10 @@
+
+wanix_extra_customisations:
+  - graphical_common
+  - graphical_sound
+  - graphical_social
+  - graphical_dev
+
+
+install_git_gpg_key: "3BAB450B990FE678"
+x_dpi: 100

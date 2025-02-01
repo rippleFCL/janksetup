@@ -8,6 +8,6 @@
 - name: Configure nmcli interfaces
   ansible.builtin.include_tasks:
     file: configure_interface.yml
-  loop: "{{ setup_nmcli_interfaces }}"
+  loop: "{{ setup_nmcli_interfaces | default([]) }}"
   loop_control:
     loop_var: "nmcli_interface"

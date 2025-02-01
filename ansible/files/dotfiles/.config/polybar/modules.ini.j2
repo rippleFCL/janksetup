@@ -29,34 +29,23 @@ format-prefix-background = ${color.bg}
 format-prefix-foreground = ${color.blue-gray}
 
 label = %date% %time%
-
-
-[module/network]
+{% for interface in setup_nmcli_interfaces | default ([]) %}
+[module/network{{ loop.index }}]
 type = internal/network
-interface = wlp0s20f0u1
+interface = {{ interface.ifname }}
+interface-type = wired
 
-interval = 3.0
-accumulate-stats = true
-unknown-as-up = true
-
-format-connected = <label-connected>
-format-connected-prefix = "󰖩"
-format-connected-background = ${color.mb}
-format-connected-foreground = ${color.green}
-
+interval = 1.0
 speed-unit = ""
-label-connected = " %netspeed%"
+label-connected = "%ifname%: %downspeed%/%upspeed%"
 label-connected-background = ${color.mb}
 label-connected-foreground = ${color.amber}
 
-format-disconnected = <label-disconnected>
-format-disconnected-prefix = "󰖪"
-
-format-disconnected-background = ${color.mb}
-format-disconnected-foreground = ${color.red}
-
 label-disconnected = not connected
 label-disconnected-foreground = ${color.red}
+
+{% endfor %}
+
 
 ######################################################
 
@@ -192,3 +181,17 @@ format-prefix-foreground = ${color.cyan}
 
 label = %swap_used%/%swap_total%
 label-background = ${color.mb}
+
+[module/battery]
+type = internal/battery
+full-at = 99
+low-at = 5
+battery = BAT0
+adapter = ADP1
+poll-interval = 5
+format-charging = <label-charging>
+format-discharging = <label-discharging>
+label-charging = Charging %percentage%%
+label-discharging = Discharging %percentage%%
+label-full = Fully charged
+label-low = BATTERY LOW

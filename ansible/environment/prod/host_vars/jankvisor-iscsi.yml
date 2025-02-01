@@ -1,7 +1,7 @@
 iscsi_targets:
   - wwn: 'iqn.1994-05.com.redhat:linux'
     disks:
-      - path: '/dev/disk/by-uuid/492c76fe-b6e7-40e4-a021-2c000b7bc764'
+      - path: '/dev/disk/by-uuid/b899c026-4a9f-46dd-9aed-79f7acfa3f3a'
         name: 'main_linux'
         type: 'block'
 
@@ -10,7 +10,7 @@ iscsi_targets:
 
   - wwn: 'iqn.1994-05.com.redhat:windows'
     disks:
-      - path: '/dev/disk/by-uuid/ca608ddd-2795-4117-98f0-90250b0bd236'
+      - path: '/dev/disk/by-uuid/d4ba769e-7fd2-4b7c-ab34-6f5a4cb5deb4'
         name: 'main_windows'
         type: 'block'
 

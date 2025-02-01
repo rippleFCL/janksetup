@@ -1,0 +1,26 @@
+---
+- name: "Copy private keys to user directory"
+  no_log: false
+  diff: false
+  ansible.builtin.copy:
+    dest: "{{ userdata.home }}/.ssh/{{ item.name }}"
+    content: "{{ item.private_key }}\n"
+    mode: "0600"
+    owner: "{{ userdata.username }}"
+    group: "{{ userdata.username }}"
+  loop: "{{ userdata.ssh_keys }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: userdata.ssh_keys is defined
+
+- name: "Copy public keys to user directory"
+  ansible.builtin.copy:
+    dest: "{{ userdata.home }}/.ssh/{{ item.name }}.pub"
+    content: "{{ item.public_key }}\n"
+    mode: "0644"
+    owner: "{{ userdata.username }}"
+    group: "{{ userdata.username }}"
+  loop: "{{ userdata.ssh_keys }}"
+  loop_control:
+    label: "{{ item.public_key }}"
+  when: userdata.ssh_keys is defined

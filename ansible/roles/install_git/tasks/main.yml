@@ -3,7 +3,7 @@
   community.general.pacman:
     name: git
     state: present
-    
+
 - name: Ensure github.com is a known host
   become: true
   ansible.builtin.lineinfile:
@@ -21,4 +21,10 @@
   community.general.git_config:
     name: safe.directory
     value: "*"
+  become: true
+
+- name: Add auto setup remote
+  community.general.git_config:
+    name: push.autoSetupRemote
+    value: "true"
   become: true
