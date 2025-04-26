@@ -2,26 +2,26 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- * 
+ *
  * Rofi Theme File
  * Rofi Version: 1.7.3
  **/
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run";
+	modi:                       "drun,window";
     show-icons:                 false;
     display-drun:               "";
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
 	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
+	window-format:              "{n:0} - {t:0} - {c:0}";
+    font: "JetBrains Mono Nerd Font 10";
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
+@import	"/home/ripple/.cache/wal/colors-rofi.rasi"
 
 * {
     border-colour:               var(foreground);
@@ -56,7 +56,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       400px;
+    width:                       2000px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -164,7 +164,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     5px;
     margin:                      0px;
     padding:                     5px;

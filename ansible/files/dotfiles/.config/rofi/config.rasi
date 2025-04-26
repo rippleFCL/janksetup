@@ -2,13 +2,15 @@
  *
  * Author : Aditya Shakya (adi1090x)
  * Github : @adi1090x
- * 
+ *
  * Configuration For Rofi Version: 1.7.3
  **/
 
+
+
 configuration {
 	/*---------- General setting ----------*/
-	modi: "drun,run,filebrowser,window";
+	modi: "drun,run,window,filebrowser,window";
 	case-sensitive: false;
 	cycle: true;
 	filter: "";
@@ -58,11 +60,11 @@ configuration {
 	/*---------- Window switcher settings ----------*/
 	window-match-fields: "title,class,role,name,desktop";
 	window-command: "wmctrl -i -R {window}";
-	window-format: "{w} - {c} - {t:0}";
-	window-thumbnail: false;
+	window-format: "weehhayy {t:0}";
+	window-thumbnail: true;
 
 	/*---------- Combi settings ----------*/
-/*	combi-modi: "window,run";*/
+/*	combi-modi: "window";*/
 /*	combi-hide-mode-prefix: false;*/
 /*	combi-display-format: "{mode} {text}";*/
 
@@ -83,7 +85,7 @@ configuration {
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";
-	font: "Mono 12";
+	font: "Monwehho 12";
 	sort: false;
 	threads: 0;
 	click-to-exit: true;
