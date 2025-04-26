@@ -9,7 +9,7 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,window";
+	modi:                       "drun,window,filebrowser";
     show-icons:                 false;
     display-drun:               "";
     display-run:                "";
@@ -98,18 +98,19 @@ inputbar {
     enabled:                     true;
     spacing:                     10px;
     margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
+    padding:                     5px;
+    border:                      5px solid;
     border-radius:               0px;
-    border-color:                @border-colour;
+    border-color:                @active-background;
     background-color:            transparent;
     text-color:                  @foreground-colour;
-    children:                    [ "prompt", "entry" ];
+    children:                    [ "prompt", "entry", "num-filtered-rows", "textbox-num-sep", "num-rows" ];
 }
 
 prompt {
     enabled:                     true;
     background-color:            inherit;
+    border: 0px 15px 0px;
     text-color:                  @urgent-background;
 }
 textbox-prompt-colon {
@@ -117,39 +118,40 @@ textbox-prompt-colon {
     expand:                      false;
     str:                         "::";
     background-color:            inherit;
-    text-color:                  inherit;
+    text-color:                  @foreground-colour;
 }
 entry {
     enabled:                     true;
     background-color:            inherit;
-    text-color:                  @active-background;
+    text-color:                  @foreground-colour;
     cursor:                      text;
-    placeholder:                 "search...";
+    placeholder:                 "what a cuut....";
     placeholder-color:           inherit;
 }
 num-filtered-rows {
     enabled:                     true;
     expand:                      false;
     background-color:            inherit;
-    text-color:                  inherit;
+    text-color:                  @foreground-colour;
 }
 textbox-num-sep {
     enabled:                     true;
     expand:                      false;
     str:                         "/";
     background-color:            inherit;
-    text-color:                  inherit;
+    text-color:                  @urgent-background;
 }
 num-rows {
     enabled:                     true;
     expand:                      false;
     background-color:            inherit;
-    text-color:                  inherit;
+    border: 0px 15px 0px;
+    text-color:                  @foreground-colour;
 }
 case-indicator {
     enabled:                     true;
     background-color:            inherit;
-    text-color:                  inherit;
+    text-color:                  @foreground-colour;
 }
 
 /*****----- Listview -----*****/
