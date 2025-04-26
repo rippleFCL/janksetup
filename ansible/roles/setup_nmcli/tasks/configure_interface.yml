@@ -22,14 +22,14 @@
     state: present
   become: true
 
-- name: Setup netbox ip addresses
-  netbox.netbox.netbox_ip_address:
-    netbox_url: "{{ netbox_url }}"
-    netbox_token: "{{ netbox_token }}"
-    data:
-      address: "{{ nmcli_interface.ip }}"
-      description: "vm: {{ inventory_hostname }} interface: {{ nmcli_interface.ifname }} nmcli managed"
-    validate_certs: false
-    state: present
-  when: nmcli_interface.ip
-  delegate_to: localhost
+# - name: Setup netbox ip addresses
+#   netbox.netbox.netbox_ip_address:
+#     netbox_url: "{{ netbox_url }}"
+#     netbox_token: "{{ netbox_token }}"
+#     data:
+#       address: "{{ nmcli_interface.ip }}"
+#       description: "vm: {{ inventory_hostname }} interface: {{ nmcli_interface.ifname }} nmcli managed"
+#     validate_certs: false
+#     state: present
+#   when: nmcli_interface.ip
+#   delegate_to: localhost

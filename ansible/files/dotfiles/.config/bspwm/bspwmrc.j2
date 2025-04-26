@@ -38,16 +38,4 @@ bspc rule -a kitty-btop state=floating layer=below sticky=on rectangle=1500x1905
 bspc rule -a kitty-btop state=floating layer=below sticky=on rectangle=1200x900+80+110
 {% endif %}
 
-~/.config/scripts/jankvisor/launch_bt.sh &
-pavucontrol &
-vesktop &
-firefox-developer-edition &
-code &
-spotify-launcher &
-easyeffects &
 ~/.config/scripts/wallpaper/initwallpaper.sh &> ~/logs/initwallpaper.log &
-GDK_SCALE=2 polybar mybar 2>&1 &
-dunst &
-xset -dpms &
-xset s off &
-kitty --class kitty-btop btop &

@@ -49,11 +49,6 @@ wanix_customisations:
       - docker
       - docker-compose
       - traceroute
-      - sops
-    roles:
-      - name: install_bsm
-        provides_pkgs:
-          - bsm
 
   - name: nvidia_drivers
     packages:

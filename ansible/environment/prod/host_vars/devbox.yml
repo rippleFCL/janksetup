@@ -1,0 +1,30 @@
+vm_id: 102
+
+setup_nmcli_interfaces:
+  - conn_name: "lan network"
+    ifname: ens18
+    method: manual
+    ip: 10.0.3.20/24
+    dns: "10.0.7.10"
+
+wanix_file_copys:
+  - dotfiles/
+
+wanix_extra_customisations:
+  - cli_base_tools
+  - cli_dev_tools
+
+wanix_file_destinations:
+  - source: dotfiles/
+    home_relative: ./
+    mode: "0644"
+    user: ripple
+    group: ripple
+
+wanix_file_depmap:
+  - path: dotfiles/.config/
+    packages: [nullpack]
+  - path: dotfiles/.ssh
+    packages: [nullpack]
+  - path: dotfiles/.Xresources.j2
+    packages: [nullpack]
