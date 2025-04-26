@@ -1,10 +1,10 @@
-iso_url           = "https://www.mirrorservice.org/sites/ftp.archlinux.org/iso/2024.04.01/archlinux-x86_64.iso"
-iso_checksum      = "52aea58f88c9a80afe64f0536da868251ef4878de5a5e0227fcada9f132bd7ab"
+iso_url           = "https://www.mirrorservice.org/sites/ftp.archlinux.org/iso/2025.04.01/archlinux-2025.04.01-x86_64.iso"
+iso_checksum      = "1155af9c142387c45eb6fbdbf32f5652fb514ce15a4d17a83e6056a996895026"
 iso_checksum_type = "sha256"
 guest_username    = "ripple"
 ansible_username  = "ansible"
 
-http_interface = "vmbr0.10"
+http_interface = "vmbr1"
 
 proxmox_url       = "10.0.1.30:8006"
 proxmox_node      = "pve-workstation"
@@ -19,7 +19,6 @@ ansible_inventory_dir = "../../ansible/environment/prod"
 network_adaptors = [
     {
         driver  = "virtio",
-        adapter = "vmbr0",
-        vlan    = 10
+        adapter = "vmbr1",
     }
 ]

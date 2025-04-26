@@ -17,7 +17,7 @@ variable "ansible_password" {
 
 variable "ssh_timeout" {
     type = string
-    default = "15m"
+    default = "35m"
 }
 
 variable "disk_pool" {
@@ -33,7 +33,6 @@ variable "network_adaptors" {
         object({
             driver = string,
             adapter = string,
-            vlan = string,
         })
     )
 }

@@ -36,13 +36,12 @@ source "proxmox-iso" "arch-deployment" {
   scsi_controller = "virtio-scsi-single"
   bios            = "ovmf"
   machine         = "q35"
-
   efi_config {
     efi_storage_pool  = "local-lvm"
     efi_type          = "4m"
   }
 
-  disks {
+  disks { 
     disk_size         = var.disk_size
     storage_pool      = var.disk_pool
     type              = "scsi"
@@ -61,7 +60,6 @@ source "proxmox-iso" "arch-deployment" {
     content {
       bridge   = network_adapters.value.adapter
       model    = network_adapters.value.driver
-      vlan_tag = network_adapters.value.vlan
     }
   }
 
