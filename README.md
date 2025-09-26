@@ -1,12 +1,12 @@
-# janksetup
+# Workstation
 
-A collection of scripts, Ansible playbooks, Packer templates, and possibly Terraform (Tofu) configurations designed to transform an already janky hypervisor into an even more janky hypervisor. This setup configures Proxmox to run completely headless. ([rippleFCL/janksetup: a collection of scrips, ansible, packer ... - GitHub](https://github.com/rippleFCL/janksetup?utm_source=chatgpt.com))
+A collection of scripts, Ansible, Packer, and Terraform to set up Proxmox to run a completely headless hypervisor based workstation.
 
 ## Features
 
 - **Headless Proxmox Configuration**: Automates the setup of a headless Proxmox environment.
 - **Automation Tools**: Utilizes Ansible for configuration management and Packer for image building.
-- **Potential Terraform Integration**: May include Terraform (Tofu) scripts for infrastructure provisioning. ([rippleFCL/janksetup: a collection of scrips, ansible, packer ... - GitHub](https://github.com/rippleFCL/janksetup?utm_source=chatgpt.com), [rippleFCL - GitHub](https://github.com/rippleFCL?utm_source=chatgpt.com))
+- **Potential Terraform Integration**: May include Terraform scripts for infrastructure provisioning.
 
 ## Getting Started
 
@@ -15,15 +15,15 @@ A collection of scripts, Ansible playbooks, Packer templates, and possibly Terra
 - Proxmox VE installed on your hypervisor.
 - Ansible installed on your control machine.
 - Packer installed for image building.
-- Python dependencies listed in `req.txt`. ([rippleFCL/janksetup: a collection of scrips, ansible, packer ... - GitHub](https://github.com/rippleFCL/janksetup?utm_source=chatgpt.com))
+- Python dependencies listed in `req.txt`.
 
 ### Installation
 
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/rippleFCL/janksetup.git
-   cd janksetup
+   git clone https://github.com/rippleFCL/workstation.git
+   cd workstation
    ```
 
 
@@ -60,7 +60,6 @@ A collection of scripts, Ansible playbooks, Packer templates, and possibly Terra
 - `packer/`: Contains Packer templates for building VM images.
 - `.vscode/`: Visual Studio Code settings.
 - `req.txt`: Python dependencies required for the setup.
-- `LICENSE`: MIT License file. ([rippleFCL/janksetup: a collection of scrips, ansible, packer ... - GitHub](https://github.com/rippleFCL/janksetup?utm_source=chatgpt.com), [XRPLF/rippled: Decentralized cryptocurrency blockchain ... - GitHub](https://github.com/XRPLF/rippled?utm_source=chatgpt.com))
 
 ## Contributing
 
